@@ -19,6 +19,8 @@ pipeline (features -> model -> explainability) does not need to
 change when you do that swap -- only the training labels do.
 """
 
+import os
+
 import joblib
 import numpy as np
 import pandas as pd
@@ -80,6 +82,7 @@ def train_model(df: pd.DataFrame):
     )
     clf.fit(X_train, y_train)
 
+    os.makedirs(os.path.dirname(MODEL_PATH), exist_ok=True)
     joblib.dump(clf, MODEL_PATH)
     return clf, X_test, y_test
 
