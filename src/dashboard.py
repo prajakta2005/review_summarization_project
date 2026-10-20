@@ -61,3 +61,35 @@ def show_result_or_hint(name: str, script: str):
     if result is None:
         st.info(f"No results yet for **{name}**. Generate them with:\n\n```\npython {script}\n```")
     return result
+
+
+def pipeline_key() -> tuple:
+    """Identifies the currently selected dataset, for caching derived results."""
+    return (current_source(), st.session_state.get("max_rows"), st.session_state.get("upload_key"))
+
+
+@st.cache_resource(show_spinner="Computing SHAP values...")
+def _shap_cache(key, _res):
+    from shap_explainer import shap_values
+    return shap_values(_res.clf, _res.df)
+
+
+def get_shap_values(res: PipelineResult):
+    """SHAP contributions (n_reviews x 6) for the loaded dataset, cached."""
+    return _shap_cache(pipeline_key() + (len(res.df),), res)
+
+
+@st.cache_resource(show_spinner="Loading text model for LIME...")
+def _text_model_cache(key, _res):
+    from lime_explainer import load_text_model
+    train = _res.df.iloc[_res.train_idx]
+    label = "ground_truth_label" if "ground_truth_label" in train.columns else None
+    if label is None:
+        # unlabeled data: fall back to the model's own predictions as labels
+        labels = _res.clf.predict(train[_res.clf.feature_names_in_])
+        return load_text_model(train["clean_text"], labels)
+    return load_text_model(train["clean_text"], train[label])
+
+
+def get_text_model(res: PipelineResult):
+    return _text_model_cache(pipeline_key() + (len(res.df),), res)

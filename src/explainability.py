@@ -10,13 +10,16 @@ Two levels, matching what the patent describes:
    values are unusually high/low compared to the training data, and
    what that implies in plain English.
 
-Design choice: rather than SHAP (which needs extra dependencies and
-is overkill for a 6-feature interpretable model), we use the
-statistically simple but transparent approach of comparing each
-review's feature values to the dataset mean/std. This keeps the
-"why" fully auditable -- you can show a reviewer/examiner the exact
-arithmetic behind every explanation. SHAP is a natural upgrade path
-once you have a larger real dataset (mention this in your report).
+Two per-review methods, same output format:
+- "zscore" (default): compares each review's feature values to the
+  dataset mean/std. Fully auditable arithmetic, but it doesn't look at
+  the model -- whether a high value is "good" comes from the fixed
+  HIGH_IS_CREDIBLE table below.
+- "shap": uses the model's exact SHAP contributions (shap_explainer.py),
+  so whether a feature counted for or against credibility is what the
+  model actually did for THIS review. The z-score table assumes
+  exclamation marks signal fakes, but on the full dataset genuine
+  reviews use slightly more of them; SHAP follows the model instead.
 """
 
 import numpy as np
@@ -132,10 +135,59 @@ def explain_review(row: pd.Series, dataset_stats: pd.DataFrame, top_k: int = 3) 
     }
 
 
-def explain_dataframe(df: pd.DataFrame) -> pd.DataFrame:
-    """Adds explanation columns to every row of the scored dataframe."""
-    stats = df[FEATURE_COLUMNS].describe()
-    records = df.apply(lambda row: explain_review(row, stats), axis=1)
+MIN_SHAP_CONTRIBUTION = 0.005  # ignore pushes smaller than 0.5 percentage points
+
+
+def explain_review_shap(row: pd.Series, shap_row, feature_means: pd.Series, top_k: int = 3) -> dict:
+    """Same output as explain_review, but driven by SHAP: a feature is a
+    positive factor if it pushed THIS review's credibility up, negative
+    if it pushed it down. The phrase still says whether the value is
+    high or low relative to the dataset mean."""
+    positive, negative = [], []
+    for col, contribution in zip(FEATURE_COLUMNS, shap_row):
+        if abs(contribution) < MIN_SHAP_CONTRIBUTION:
+            continue
+        direction = "high" if row[col] > feature_means[col] else "low"
+        entry = (col, abs(contribution), FEATURE_MEANING[col][direction])
+        (positive if contribution > 0 else negative).append(entry)
+
+    positive.sort(key=lambda x: -x[1])
+    negative.sort(key=lambda x: -x[1])
+    top_pos, top_neg = positive[:top_k], negative[:top_k]
+
+    parts = []
+    if top_pos:
+        parts.append("The model rated this review more credible because of "
+                     + ", ".join(p[2] for p in top_pos) + ".")
+    if top_neg:
+        parts.append(("However, " if top_pos else "The model rated it less credible because of ")
+                     + ", ".join(n[2] for n in top_neg)
+                     + (" lowered its credibility." if top_pos else "."))
+    if not parts:
+        parts.append("No single signal moved this review's score much; it sits near the average.")
+    return {
+        "positive_factors": [p[2] for p in top_pos],
+        "negative_factors": [n[2] for n in top_neg],
+        "explanation_text": " ".join(parts),
+    }
+
+
+def explain_dataframe(df: pd.DataFrame, method: str = "zscore", clf=None) -> pd.DataFrame:
+    """Adds explanation columns to every row of the scored dataframe.
+    method="shap" needs the fitted credibility model as clf."""
+    if method == "shap":
+        if clf is None:
+            raise ValueError("method='shap' needs clf")
+        from shap_explainer import shap_values
+        vals = shap_values(clf, df)  # one vectorized call for all rows
+        means = df[FEATURE_COLUMNS].mean()
+        records = pd.Series([explain_review_shap(row, vals[i], means)
+                             for i, (_, row) in enumerate(df.iterrows())], index=df.index)
+    elif method == "zscore":
+        stats = df[FEATURE_COLUMNS].describe()
+        records = df.apply(lambda row: explain_review(row, stats), axis=1)
+    else:
+        raise ValueError(f"Unknown explanation method: {method}")
     df = df.copy()
     df["positive_factors"] = records.apply(lambda r: r["positive_factors"])
     df["negative_factors"] = records.apply(lambda r: r["negative_factors"])

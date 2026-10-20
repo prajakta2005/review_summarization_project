@@ -1,0 +1,428 @@
+{
+  "meta": {
+    "name": "explainability_eval",
+    "generated_at": "2026-10-20T19:47:39+00:00",
+    "git_commit": "39f1b83",
+    "dataset": "kaggle_full",
+    "n_rows": 40412,
+    "split": {
+      "test_size": 0.2,
+      "seed": 42
+    },
+    "script": "experiments/run_explainability_eval.py"
+  },
+  "data": {
+    "n_explained": 500,
+    "base_value": 0.5001,
+    "global_shap": {
+      "sentiment": 0.00969,
+      "length": 0.0392,
+      "exclaim_density": 0.02462,
+      "repetition_ratio": 0.07281,
+      "specificity": 0.02519,
+      "rating_consistency": 0.00635
+    },
+    "class_contrast": {
+      "genuine": {
+        "sentiment": 0.00208,
+        "length": 0.02312,
+        "exclaim_density": 0.00432,
+        "repetition_ratio": 0.03261,
+        "specificity": 0.00625,
+        "rating_consistency": 0.00045
+      },
+      "fake": {
+        "sentiment": -0.00124,
+        "length": -0.01193,
+        "exclaim_density": -0.0035,
+        "repetition_ratio": -0.04313,
+        "specificity": -0.00462,
+        "rating_consistency": -0.0013
+      }
+    },
+    "agreement": {
+      "top1_match": {
+        "zscore_vs_shap": 0.318,
+        "zscore_vs_lime": 0.27,
+        "shap_vs_lime": 0.538
+      },
+      "top3_jaccard": {
+        "zscore_vs_shap": 0.3738,
+        "zscore_vs_lime": 0.315,
+        "shap_vs_lime": 0.6502
+      },
+      "kendall_tau": {
+        "zscore_vs_shap": 0.0413,
+        "zscore_vs_lime": -0.064,
+        "shap_vs_lime": 0.596
+      }
+    },
+    "faithfulness": {
+      "k": [
+        1,
+        2,
+        3
+      ],
+      "prob_change": {
+        "zscore": [
+          0.0615,
+          0.0877,
+          0.0919
+        ],
+        "shap": [
+          0.1012,
+          0.1195,
+          0.138
+        ],
+        "lime": [
+          0.0941,
+          0.1222,
+          0.1282
+        ],
+        "random": [
+          0.0318,
+          0.0635,
+          0.0846
+        ]
+      }
+    },
+    "examples": [
+      {
+        "review_id": 11380,
+        "label": "fake",
+        "score": 0.3672,
+        "text": "These things are SO cheaply made. The only reason I gave it 4 stars is because I just can't get it to connect. The only way to get it to work is by going to the website and copying the file to your computer. Otherwise it is very easy to find and use.I bought this as a gift to my wife for her birthday and it is a great deal. She loves it and she has not had any problems with it. I have a camera in the car and it is very easy to set up. She will use it everyday for our school and she loves it. She",
+        "shap": {
+          "sentiment": -0.0091,
+          "length": 0.0575,
+          "exclaim_density": -0.0116,
+          "repetition_ratio": -0.0891,
+          "specificity": -0.0179,
+          "rating_consistency": -0.0628
+        },
+        "lime_words": [
+          [
+            "it",
+            -0.2115
+          ],
+          [
+            "is",
+            -0.1229
+          ],
+          [
+            "only",
+            -0.0978
+          ],
+          [
+            "The",
+            -0.0966
+          ],
+          [
+            "reason",
+            -0.0919
+          ],
+          [
+            "loves",
+            -0.0748
+          ],
+          [
+            "had",
+            -0.0641
+          ],
+          [
+            "great",
+            -0.0638
+          ],
+          [
+            "Otherwise",
+            0.0611
+          ],
+          [
+            "and",
+            -0.0532
+          ]
+        ]
+      },
+      {
+        "review_id": 37396,
+        "label": "fake",
+        "score": 0.4474,
+        "text": "I'm going on a trip this summer and I'm going to need a lot of help to keep",
+        "shap": {
+          "sentiment": 0.0084,
+          "length": -0.0605,
+          "exclaim_density": -0.0188,
+          "repetition_ratio": 0.0326,
+          "specificity": -0.0174,
+          "rating_consistency": 0.0029
+        },
+        "lime_words": [
+          [
+            "lot",
+            -0.2357
+          ],
+          [
+            "this",
+            0.1431
+          ],
+          [
+            "of",
+            -0.1192
+          ],
+          [
+            "to",
+            0.0938
+          ],
+          [
+            "need",
+            -0.0931
+          ],
+          [
+            "going",
+            -0.0892
+          ],
+          [
+            "on",
+            0.0847
+          ],
+          [
+            "help",
+            0.0829
+          ],
+          [
+            "summer",
+            0.0788
+          ],
+          [
+            "trip",
+            -0.072
+          ]
+        ]
+      },
+      {
+        "review_id": 35594,
+        "label": "fake",
+        "score": 0.1755,
+        "text": "The K'NEX Family Guy Buildable Robot has the pieces to make a full robot, and the figures themselves are a great addition. The robot itself is very sturdy, and the paint is very soft. The K'NEX Robot is very similar to the K'NEX Enterprise Enterprise with the addition of the cockpit. The K'NEX Enterprise is a very simple",
+        "shap": {
+          "sentiment": -0.0092,
+          "length": -0.027,
+          "exclaim_density": -0.0135,
+          "repetition_ratio": -0.2577,
+          "specificity": -0.0203,
+          "rating_consistency": 0.003
+        },
+        "lime_words": [
+          [
+            "the",
+            -0.223
+          ],
+          [
+            "is",
+            -0.0899
+          ],
+          [
+            "pieces",
+            -0.0728
+          ],
+          [
+            "addition",
+            -0.0649
+          ],
+          [
+            "has",
+            -0.0583
+          ],
+          [
+            "Robot",
+            0.0474
+          ],
+          [
+            "very",
+            -0.037
+          ],
+          [
+            "sturdy",
+            -0.0314
+          ],
+          [
+            "make",
+            -0.0305
+          ],
+          [
+            "The",
+            -0.0294
+          ]
+        ]
+      },
+      {
+        "review_id": 37336,
+        "label": "genuine",
+        "score": 0.5672,
+        "text": "I got one last April and like it so well I bought another. Might even get another!",
+        "shap": {
+          "sentiment": 0.0276,
+          "length": -0.0652,
+          "exclaim_density": 0.0762,
+          "repetition_ratio": 0.0416,
+          "specificity": -0.0148,
+          "rating_consistency": 0.0019
+        },
+        "lime_words": [
+          [
+            "another",
+            0.0505
+          ],
+          [
+            "even",
+            0.0455
+          ],
+          [
+            "like",
+            0.0382
+          ],
+          [
+            "it",
+            -0.0202
+          ],
+          [
+            "Might",
+            0.0182
+          ],
+          [
+            "get",
+            -0.0139
+          ],
+          [
+            "got",
+            0.0131
+          ],
+          [
+            "one",
+            -0.0129
+          ],
+          [
+            "bought",
+            -0.0119
+          ],
+          [
+            "last",
+            0.0114
+          ]
+        ]
+      },
+      {
+        "review_id": 10972,
+        "label": "genuine",
+        "score": 0.6254,
+        "text": "This camera has been termed \"entry level\" far and wide. So be it. I find it to be a wonderful camera for what I needed: A camera that had fast, crisp autofocus and could take shots at a speed faster than every 3 or 4 seconds (which seems to be the typical recovery/ready time for most point and shoots in my experience). Plus, I am rediscovering the joy of artistic photography with this camera. I'll let the professionals argue over the value and performance for them, but for me, this is a winner!",
+        "shap": {
+          "sentiment": -0.0136,
+          "length": 0.0023,
+          "exclaim_density": 0.0534,
+          "repetition_ratio": 0.0528,
+          "specificity": 0.0268,
+          "rating_consistency": 0.0036
+        },
+        "lime_words": [
+          [
+            "over",
+            0.0115
+          ],
+          [
+            "at",
+            0.0101
+          ],
+          [
+            "Plus",
+            0.009
+          ],
+          [
+            "far",
+            0.0089
+          ],
+          [
+            "wonderful",
+            0.0089
+          ],
+          [
+            "seems",
+            0.0083
+          ],
+          [
+            "or",
+            0.0077
+          ],
+          [
+            "wide",
+            -0.0066
+          ],
+          [
+            "had",
+            -0.0047
+          ],
+          [
+            "the",
+            -0.0023
+          ]
+        ]
+      },
+      {
+        "review_id": 39315,
+        "label": "genuine",
+        "score": 0.4957,
+        "text": "I bought them in black after loving them in brown. They are lightweight, cuter than Emus, and way more economical than Uggs. They are warm and comfortable enough for all day wear. After a few wears, they soften and are more wearable. I don't know how they would hold up in actual snow, but they are fine in the rain.",
+        "shap": {
+          "sentiment": -0.0053,
+          "length": -0.0088,
+          "exclaim_density": -0.0151,
+          "repetition_ratio": 0.0344,
+          "specificity": -0.0132,
+          "rating_consistency": 0.0035
+        },
+        "lime_words": [
+          [
+            "are",
+            -0.0947
+          ],
+          [
+            "enough",
+            0.0665
+          ],
+          [
+            "how",
+            -0.0543
+          ],
+          [
+            "than",
+            0.0524
+          ],
+          [
+            "comfortable",
+            -0.0496
+          ],
+          [
+            "all",
+            0.0443
+          ],
+          [
+            "after",
+            0.039
+          ],
+          [
+            "few",
+            -0.034
+          ],
+          [
+            "and",
+            0.0337
+          ],
+          [
+            "wears",
+            -0.0306
+          ]
+        ]
+      }
+    ]
+  }
+}
