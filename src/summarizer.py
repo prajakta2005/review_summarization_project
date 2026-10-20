@@ -80,6 +80,38 @@ def _collect_sentences(subset: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows, columns=["sentence", "review_id", "score", "is_fake"])
 
 
+def _summarize(sentences: pd.DataFrame, weights, top_n: int) -> list:
+    """Ranks the collected sentences with the given weights and returns the
+    chosen ones as dicts (sentence, review_id, score, is_fake)."""
+    if sentences.empty:
+        return []
+    idx = rank_sentences(sentences["sentence"].tolist(), list(weights), top_n, return_indices=True)
+    return sentences.iloc[idx].to_dict(orient="records")
+
+
+def _subset(df: pd.DataFrame, product_id: str = None) -> pd.DataFrame:
+    return df if product_id is None else df[df["product_id"] == product_id]
+
+
+def standard_summary(df: pd.DataFrame, product_id: str = None, top_n: int = 4) -> dict:
+    """BASELINE: the same ranker with every review weighted equally, i.e.
+    a normal review summarizer that trusts fake and genuine reviews alike."""
+    sentences = _collect_sentences(_subset(df, product_id))
+    items = _summarize(sentences, [1.0] * len(sentences), top_n)
+    return {"summary": " ".join(it["sentence"] for it in items), "items": items}
+
+
+def oracle_summary(df: pd.DataFrame, product_id: str = None, top_n: int = 4) -> dict:
+    """REFERENCE: the same ranker over ground-truth GENUINE reviews only --
+    what a perfect credibility filter would give. Needs ground_truth_label."""
+    subset = _subset(df, product_id)
+    if "ground_truth_label" not in subset.columns:
+        return {"summary": "", "items": []}
+    sentences = _collect_sentences(subset[subset["ground_truth_label"] == 1])
+    items = _summarize(sentences, [1.0] * len(sentences), top_n)
+    return {"summary": " ".join(it["sentence"] for it in items), "items": items}
+
+
 def credibility_aware_summary(df: pd.DataFrame, product_id: str = None, top_n: int = 4) -> dict:
     """df must already have `clean_text` and `credibility_score` columns.
     Returns overall summary, high-credibility consensus, and flagged
