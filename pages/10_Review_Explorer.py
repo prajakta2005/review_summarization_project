@@ -104,7 +104,7 @@ if use_gemini:
     with st.spinner("Asking Gemini to narrate the computed factors..."):
         llm_text = generate_llm_explanation_safe(
             row, explanation["positive_factors"], explanation["negative_factors"],
-            fallback_text=explanation["explanation_text"]
+            fallback_text=explanation["explanation_text"], shap_factors=shap_factors
         )
     st.markdown("**Gemini explanation:**")
     st.success(llm_text)
