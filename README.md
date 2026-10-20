@@ -4,6 +4,11 @@ Working prototype demonstrating the patented workflow:
 **Reviews → Preprocessing → Feature Extraction → Credibility Assessment →
 Explainability → Credibility-Aware Summarization → Dashboard**
 
+**What's new:** the credibility model decides how much each review counts in the product
+summary, and every summary sentence can be traced back to its review, score and SHAP
+explanation. On 40,412 labeled reviews this cuts the share of summary sentences taken from
+fake reviews from 92% to 42%. Details and evidence are in [docs/NOVELTY.md](docs/NOVELTY.md).
+
 ## Run it
 
 ```bash
