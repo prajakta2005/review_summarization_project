@@ -31,6 +31,12 @@ from splits import train_test_indices
 
 MODEL_PATH = "models/credibility_rf.joblib"
 
+# Credibility score cut-offs (0-100) for the High / Medium / Low labels.
+# The summarizer uses the same values; the Performance page shows where
+# they sit on the threshold curve.
+HIGH_THRESHOLD = 70
+LOW_THRESHOLD = 40
+
 
 def pseudo_label(row) -> int:
     """Heuristic weak-supervision rule -> 1 = credible, 0 = suspicious.
@@ -110,9 +116,9 @@ def score_reviews(df: pd.DataFrame, clf) -> pd.DataFrame:
     df["confidence"] = (np.max(proba, axis=1) * 100).round(1)
 
     def bucket(score):
-        if score >= 70:
+        if score >= HIGH_THRESHOLD:
             return "High"
-        elif score >= 40:
+        elif score >= LOW_THRESHOLD:
             return "Medium"
         return "Low"
 

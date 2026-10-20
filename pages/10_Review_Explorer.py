@@ -14,7 +14,6 @@ import pandas as pd
 from dashboard import require_pipeline
 from summarizer import credibility_aware_summary
 from comparison import compare_products
-from evaluation import evaluate_model
 from storage import save_reviews, save_product_summary, DB_PATH
 from model_management import train_and_register, list_versions
 
@@ -100,21 +99,7 @@ st.dataframe(
 )
 
 # --- Performance Evaluation (module 12) ---
-with st.expander("📊 Model Performance Evaluation"):
-    metrics = evaluate_model(clf, df)
-    if metrics["label_source"] == "real_ground_truth":
-        st.success("Evaluated on REAL ground-truth labels -- safe to cite in your report.")
-    else:
-        st.warning("Evaluated on heuristic pseudo-labels -- demo only, do NOT cite as a real benchmark.")
-    m1, m2, m3, m4, m5 = st.columns(5)
-    m1.metric("Accuracy", metrics["accuracy"])
-    m2.metric("Precision", metrics["precision"])
-    m3.metric("Recall", metrics["recall"])
-    m4.metric("F1 Score", metrics["f1_score"])
-    m5.metric("ROC-AUC", metrics["roc_auc"] if metrics["roc_auc"] is not None else "N/A")
-    st.text("Confusion matrix (rows=actual, cols=predicted, order=[not_credible, credible]):")
-    st.write(pd.DataFrame(metrics["confusion_matrix"], columns=["Pred: Not Credible", "Pred: Credible"], index=["Actual: Not Credible", "Actual: Credible"]))
-    st.text(metrics["classification_report"])
+st.page_link("pages/04_Performance.py", label="📊 See full performance results (all models, confusion matrix, CV) →")
 
 # --- Data Storage & Model Management (modules 10 & 11) ---
 with st.expander("🗄️ Data Storage & Model Versioning"):
