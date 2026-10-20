@@ -43,24 +43,41 @@ def split_sentences(text: str):
     return [s.strip() for s in sentences if len(s.strip()) > 3]
 
 
-def rank_sentences(sentences: list, weights: list, top_n: int) -> list:
+def rank_sentences(sentences: list, weights: list, top_n: int, return_indices: bool = False) -> list:
     """TF-IDF cosine-similarity-to-centroid ranking, scaled by
     per-sentence credibility weight. Returns top_n sentences in
     their original relative order (reads more naturally).
+    return_indices=True returns their positions instead, so each summary
+    sentence can be traced back to the review it came from.
     """
     if not sentences:
         return []
     if len(sentences) <= top_n:
-        return sentences
+        top_idx = list(range(len(sentences)))
+    else:
+        vectorizer = TfidfVectorizer(stop_words="english")
+        tfidf = vectorizer.fit_transform(sentences)
+        centroid = np.asarray(tfidf.mean(axis=0))
+        scores = np.asarray(tfidf @ centroid.T).flatten()
+        weighted_scores = scores * np.array(weights)
+        top_idx = sorted(int(i) for i in np.argsort(-weighted_scores)[:top_n])  # keep original order
+    return top_idx if return_indices else [sentences[i] for i in top_idx]
 
-    vectorizer = TfidfVectorizer(stop_words="english")
-    tfidf = vectorizer.fit_transform(sentences)
-    centroid = np.asarray(tfidf.mean(axis=0))
-    scores = np.asarray(tfidf @ centroid.T).flatten()
-    weighted_scores = scores * np.array(weights)
 
-    top_idx = sorted(np.argsort(-weighted_scores)[:top_n])  # keep original order
-    return [sentences[i] for i in top_idx]
+def _collect_sentences(subset: pd.DataFrame) -> pd.DataFrame:
+    """One row per sentence: sentence, review_id, credibility score of its
+    review, and is_fake from the ground-truth label (None if unlabeled)."""
+    has_labels = "ground_truth_label" in subset.columns and subset["ground_truth_label"].notna().all()
+    rows = []
+    for _, row in subset.iterrows():
+        for sent in split_sentences(row["clean_text"]):
+            rows.append({
+                "sentence": sent,
+                "review_id": row["review_id"],
+                "score": row["credibility_score"],
+                "is_fake": bool(row["ground_truth_label"] == 0) if has_labels else None,
+            })
+    return pd.DataFrame(rows, columns=["sentence", "review_id", "score", "is_fake"])
 
 
 def credibility_aware_summary(df: pd.DataFrame, product_id: str = None, top_n: int = 4) -> dict:
@@ -72,13 +89,10 @@ def credibility_aware_summary(df: pd.DataFrame, product_id: str = None, top_n: i
     if subset.empty:
         return {"overall_summary": "", "high_credibility_consensus": "", "low_credibility_flags": []}
 
-    all_sentences, all_weights, sentence_source_credibility = [], [], []
-    for _, row in subset.iterrows():
-        for sent in split_sentences(row["clean_text"]):
-            all_sentences.append(sent)
-            weight = max(row["credibility_score"] / 100, 0.05)  # never fully zero out
-            all_weights.append(weight)
-            sentence_source_credibility.append(row["credibility_score"])
+    sentences = _collect_sentences(subset)
+    all_sentences = sentences["sentence"].tolist()
+    all_weights = (sentences["score"] / 100).clip(lower=0.05).tolist()  # never fully zero out
+    sentence_source_credibility = sentences["score"].tolist()
 
     # Overall summary: all sentences, credibility-weighted
     overall = rank_sentences(all_sentences, all_weights, top_n)
