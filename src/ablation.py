@@ -28,8 +28,12 @@ SCORING = {"accuracy": "accuracy", "f1": "f1", "roc_auc": "roc_auc"}
 def cv_score(df: pd.DataFrame, y: pd.Series, model_id: str, columns: list, k: int = 5) -> dict:
     """{metric: {"mean", "std", "folds"}} for the model trained on `columns` only."""
     cv = StratifiedKFold(n_splits=k, shuffle=True, random_state=SEED)
-    scores = cross_validate(build_pipeline(model_id, columns=list(columns)), df, y,
-                            cv=cv, scoring=SCORING, n_jobs=-1)
+    model = build_pipeline(model_id, columns=list(columns))
+    # Folds run sequentially and the forest parallelizes with threads:
+    # ~37 CV runs of process-based parallelism is slow and flaky on Windows.
+    if "n_jobs" in model.named_steps["clf"].get_params():
+        model.set_params(clf__n_jobs=-1)
+    scores = cross_validate(model, df[list(FEATURE_COLUMNS)], y, cv=cv, scoring=SCORING)
     return {m: {"mean": round(float(scores[f"test_{m}"].mean()), 4),
                 "std": round(float(scores[f"test_{m}"].std()), 4),
                 "folds": [round(float(v), 4) for v in scores[f"test_{m}"]]}
@@ -80,8 +84,9 @@ def importance_rankings(df, y, train_idx, test_idx, loo: list, shap_importance: 
     model = build_pipeline(ABLATION_MODELS["rf"])
     model.fit(df.iloc[train_idx], y.iloc[train_idx])
     impurity = pd.Series(model.named_steps["clf"].feature_importances_, index=FEATURE_COLUMNS)
-    perm = permutation_importance(model, df.iloc[test_idx], y.iloc[test_idx], scoring="f1",
-                                  n_repeats=5, random_state=SEED, n_jobs=-1)
+    # only shuffle the 6 feature columns (the pipeline selects them by name)
+    perm = permutation_importance(model, df[FEATURE_COLUMNS].iloc[test_idx], y.iloc[test_idx],
+                                  scoring="f1", n_repeats=5, random_state=SEED)
     permutation = pd.Series(perm.importances_mean, index=FEATURE_COLUMNS)
     ablation = pd.Series({r["removed"]: -r["delta_f1"] for r in loo})  # bigger drop = more important
 
