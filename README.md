@@ -46,12 +46,36 @@ papers, are in [`docs/figures/paper/`](docs/figures/paper/).
 
 ## Run it
 
-Use the **same Python** for installing and running. `python -m ...` guarantees that:
+Install into a **virtual environment** (`.venv`, ignored by git) so the packages, `python` and
+Streamlit all come from the same Python 3.11 or 3.12. Create it once, from the project folder.
 
-```bash
-python -m pip install -r requirements.txt
+**Windows (PowerShell)**
+
+```powershell
+py -3.12 -m venv .venv
+.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt -r requirements-dev.txt
 python -m streamlit run app.py
 ```
+
+In Git Bash or cmd, activate with `source .venv/Scripts/activate` or `.venv\Scripts\activate.bat`
+instead. If PowerShell refuses to run the activate script, run
+`Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` once.
+
+**Linux / macOS**
+
+```bash
+python3.12 -m venv .venv          # or python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt -r requirements-dev.txt
+python -m streamlit run app.py
+```
+
+Each new terminal: activate the venv again (`.venv\Scripts\Activate.ps1` or
+`source .venv/bin/activate`), then run the app. In VS Code, pick the `.venv` interpreter
+(*Python: Select Interpreter*) and its terminals activate it automatically. `deactivate` leaves the venv.
 
 Opens at http://localhost:8501. Choose **Kaggle fake-reviews dataset (≈40k reviews)** on the
 Home page (about 12 s to load the first time, then cached). Every page uses the data source
@@ -77,9 +101,9 @@ More screenshots with captions: [docs/SYSTEM_OUTPUT.md](docs/SYSTEM_OUTPUT.md).
 
 ### Troubleshooting
 
-- **`ModuleNotFoundError` (e.g. `No module named 'shap'`)**: the `streamlit` command belongs to a
-  different Python than the one you installed into. Run `python -m pip install -r requirements.txt`
-  and start the app with `python -m streamlit run app.py`.
+- **`ModuleNotFoundError` (e.g. `No module named 'shap'`)**: the app is running on a different Python
+  than the one you installed into. Activate the venv (see [Run it](#run-it)), then run
+  `python -m pip install -r requirements.txt` and start the app with `python -m streamlit run app.py`.
 - **Figure export fails** (`write_image`): needs `plotly>=6.1.1` with `kaleido>=1.0`, plus an installed
   Chrome or Edge (or run `kaleido_get_chrome`).
 - **Gemini explanation shows "unavailable"**: optional. Put `GEMINI_API_KEY=...` in a `.env` file;
@@ -87,8 +111,9 @@ More screenshots with captions: [docs/SYSTEM_OUTPUT.md](docs/SYSTEM_OUTPUT.md).
 
 ## Tests
 
+With the venv activated:
+
 ```bash
-python -m pip install -r requirements-dev.txt
 python -m pytest            # 52 tests
 ```
 

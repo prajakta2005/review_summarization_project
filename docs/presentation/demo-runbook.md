@@ -2,10 +2,27 @@
 
 ## The day before
 
+Set up the virtual environment once (details in the main [README](../../README.md#run-it)), then:
+
+**Windows (PowerShell)**
+
+```powershell
+git checkout main; git pull                  # or dev, whichever you present from
+py -3.12 -m venv .venv                       # first time only
+.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt -r requirements-dev.txt
+python -m pytest -q                          # should say 52 passed
+python -m streamlit run app.py
+```
+
+**Linux / macOS**
+
 ```bash
-git checkout main && git pull            # or dev, whichever you present from
-python -m pip install -r requirements.txt
-python -m pytest -q                      # should say 52 passed
+git checkout main && git pull                # or dev, whichever you present from
+python3.12 -m venv .venv                     # first time only
+source .venv/bin/activate
+python -m pip install -r requirements.txt -r requirements-dev.txt
+python -m pytest -q                          # should say 52 passed
 python -m streamlit run app.py
 ```
 
@@ -48,7 +65,7 @@ If you have extra time: **Explainability → Method Agreement** (SHAP is the mos
 | Gemini checkbox shows "unavailable" | No API key: say "it falls back to the built-in explanation" and move on |
 | App won't start | Present from [`docs/screenshots/`](../screenshots/): S2, S3 and S5 cover the demo |
 | Port in use | `python -m streamlit run app.py --server.port 8502` |
-| `ModuleNotFoundError` on a page | The `streamlit` command uses another Python: run `python -m pip install -r requirements.txt` and `python -m streamlit run app.py` |
+| `ModuleNotFoundError` on a page | The venv isn't active: activate it (`.venv\Scripts\Activate.ps1` on Windows, `source .venv/bin/activate` on Linux), then `python -m streamlit run app.py` |
 
 ## Questions you'll probably get
 
