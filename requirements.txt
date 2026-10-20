@@ -6,3 +6,4 @@ plotly
 numpy
 google-genai
 python-dotenv
+scipy
