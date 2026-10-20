@@ -42,11 +42,15 @@ def adapt_kaggle_dataframe(df: pd.DataFrame, sample_n: int = None) -> pd.DataFra
         "timestamp": pd.NaT,
         "review_text": df["text_"],
         "ground_truth_label": (df["label"] == "OR").astype(int),
+        # kept for display/profiling: product_id is the category in this dataset,
+        # and OR = original (genuine), CG = computer-generated (fake)
+        "category": df["category"].astype(str),
+        "source_label": df["label"].astype(str),
     })
     return adapted
 
 
-def adapt_kaggle_fake_reviews(kaggle_csv_path: str, out_path: str, sample_n: int = 2000):
+def adapt_kaggle_fake_reviews(kaggle_csv_path: str, out_path: str, sample_n: int = None):
     """File-based CLI wrapper -- still supported, no longer required
     (the app now auto-detects and adapts on upload too)."""
     df = pd.read_csv(kaggle_csv_path)
@@ -58,5 +62,5 @@ def adapt_kaggle_fake_reviews(kaggle_csv_path: str, out_path: str, sample_n: int
 
 
 if __name__ == "__main__":
-    in_path = sys.argv[1] if len(sys.argv) > 1 else "data/kaggle_fake_reviews.csv"
+    in_path = sys.argv[1] if len(sys.argv) > 1 else "data/fake reviews dataset.csv"
     adapt_kaggle_fake_reviews(kaggle_csv_path=in_path, out_path="data/kaggle_adapted.csv")
