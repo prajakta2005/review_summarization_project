@@ -52,11 +52,18 @@ if source == "upload":
         st.info("Upload a CSV to begin, or pick another data source.")
         st.stop()
 
-# --- Safety cap: large datasets (the Kaggle one is 40k rows) make
-# summarization and RandomForest training slow for a live demo.
-MAX_ROWS = 3000
+# --- Row limit: the full 40k Kaggle set takes ~11s on first load (then
+# it's cached), so "all" is the default; smaller samples are stratified.
+ROW_OPTIONS = [1000, 3000, 10000, 20000, "all"]
+max_rows = "all"
+if source != "sample":
+    max_rows = st.sidebar.select_slider(
+        "Max rows", ROW_OPTIONS,
+        value=st.session_state.get("max_rows") or "all",
+        help="Stratified down-sampling for faster experiments. 'all' uses every review.",
+    )
 st.session_state["data_source"] = source
-st.session_state["max_rows"] = None if source == "sample" else MAX_ROWS
+st.session_state["max_rows"] = None if max_rows == "all" else max_rows
 
 res = require_pipeline()
 explained, clf = res.explained, res.clf
