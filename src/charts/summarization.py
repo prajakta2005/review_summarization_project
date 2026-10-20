@@ -24,7 +24,7 @@ def contamination_bar(per_category: list, top_n: int = 5) -> go.Figure:
     df = df[df["top_n"] == top_n]
     fig = px.bar(df, x="category", y="contamination", color="summary", barmode="group",
                  color_discrete_map={VARIANT_LABELS[k]: v for k, v in VARIANT_COLORS.items()},
-                 title=f"Share of summary sentences taken from FAKE reviews ({top_n}-sentence summaries)")
+                 title=f"Fake contamination per category ({top_n}-sentence summaries)")
     fig.update_layout(yaxis_tickformat=".0%", yaxis_title="fake contamination (lower is better)",
                       xaxis_title=None, legend_title=None)
     return fig

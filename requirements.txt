@@ -11,3 +11,4 @@ shap
 lime
 matplotlib
 rouge-score
+kaleido>=1.0
