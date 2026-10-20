@@ -78,11 +78,11 @@ class PipelineResult:
     test_idx: np.ndarray
 
 
-def run_pipeline(raw_df: pd.DataFrame) -> PipelineResult:
+def run_pipeline(raw_df: pd.DataFrame, explain_method: str = "zscore") -> PipelineResult:
     df = preprocess(raw_df)
     df = extract_features(df)
     clf, _, _ = train_model(df)  # trained fresh on this dataset each run (demo simplicity)
     _, train_idx, test_idx = labeled_split(df)
     scored = score_reviews(df, clf)
-    explained = explain_dataframe(scored)
+    explained = explain_dataframe(scored, method=explain_method, clf=clf)
     return PipelineResult(df, clf, scored, explained, train_idx, test_idx)
