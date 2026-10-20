@@ -71,18 +71,11 @@ def evaluate_model(clf, df: pd.DataFrame) -> dict:
     y_pred = clf.predict(X_test)
     y_proba = clf.predict_proba(X_test)[:, list(clf.classes_).index(1)]
 
-    metrics = {
+    metrics = compute_metrics(y_test, y_pred, y_proba, curves=False)
+    metrics.update({
         "label_source": label_source,
         "n_test_samples": len(X_test),
-        "accuracy": round(accuracy_score(y_test, y_pred), 4),
-        "precision": round(precision_score(y_test, y_pred, zero_division=0), 4),
-        "recall": round(recall_score(y_test, y_pred, zero_division=0), 4),
-        "f1_score": round(f1_score(y_test, y_pred, zero_division=0), 4),
-        "confusion_matrix": confusion_matrix(y_test, y_pred).tolist(),
+        "f1_score": metrics["f1"],  # key kept for existing callers
         "classification_report": classification_report(y_test, y_pred, zero_division=0),
-    }
-    if y_test.nunique() > 1:
-        metrics["roc_auc"] = round(roc_auc_score(y_test, y_proba), 4)
-    else:
-        metrics["roc_auc"] = None
+    })
     return metrics
