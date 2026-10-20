@@ -1,0 +1,52 @@
+{
+ "meta": {
+  "name": "summary_comparison",
+  "generated_at": "2026-01-01T00:00:00+00:00",
+  "git_commit": "abc1234",
+  "dataset": "kaggle_full",
+  "n_rows": 100,
+  "split": {
+   "test_size": 0.2,
+   "seed": 42
+  },
+  "script": "experiments/summary_comparison.py"
+ },
+ "data": {
+  "averages": {
+   "5": {
+    "standard": {
+     "contamination": 0.9,
+     "mean_source_cred": 40.0,
+     "rouge1": 0.45,
+     "rouge2": 0.16,
+     "rougeL": 0.31,
+     "redundancy": 0.5,
+     "coverage": 0.37
+    },
+    "credibility_aware": {
+     "contamination": 0.4,
+     "mean_source_cred": 70.0,
+     "rouge1": 0.57,
+     "rouge2": 0.3,
+     "rougeL": 0.4,
+     "redundancy": 0.46,
+     "coverage": 0.37
+    }
+   }
+  },
+  "per_category": [
+   {
+    "category": "A",
+    "top_n": 5,
+    "variant": "standard",
+    "contamination": 0.9
+   },
+   {
+    "category": "A",
+    "top_n": 5,
+    "variant": "credibility_aware",
+    "contamination": 0.4
+   }
+  ]
+ }
+}
