@@ -112,22 +112,31 @@ def oracle_summary(df: pd.DataFrame, product_id: str = None, top_n: int = 4) -> 
     return {"summary": " ".join(it["sentence"] for it in items), "items": items}
 
 
-def credibility_aware_summary(df: pd.DataFrame, product_id: str = None, top_n: int = 4) -> dict:
+def credibility_aware_summary(df: pd.DataFrame, product_id: str = None, top_n: int = 4,
+                              weight_floor: float = 0.05, hard_threshold: float = None) -> dict:
     """df must already have `clean_text` and `credibility_score` columns.
     Returns overall summary, high-credibility consensus, and flagged
     low-credibility claims -- for one product if product_id given, else all.
+
+    weight_floor: minimum weight for a sentence (so low-credibility text is
+      down-weighted, never fully zeroed out).
+    hard_threshold: optional score (0-100); reviews below it are dropped
+      from the overall summary entirely (a hard filter, for comparison).
+    "overall_items" / "sources" trace each summary sentence to its review.
     """
-    subset = df if product_id is None else df[df["product_id"] == product_id]
+    subset = _subset(df, product_id)
     if subset.empty:
-        return {"overall_summary": "", "high_credibility_consensus": "", "low_credibility_flags": []}
+        return {"overall_summary": "", "overall_items": [], "sources": [],
+                "high_credibility_consensus": "", "low_credibility_flags": []}
 
     sentences = _collect_sentences(subset)
     all_sentences = sentences["sentence"].tolist()
-    all_weights = (sentences["score"] / 100).clip(lower=0.05).tolist()  # never fully zero out
     sentence_source_credibility = sentences["score"].tolist()
 
     # Overall summary: all sentences, credibility-weighted
-    overall = rank_sentences(all_sentences, all_weights, top_n)
+    ranked = sentences if hard_threshold is None else sentences[sentences["score"] >= hard_threshold]
+    overall_items = _summarize(ranked, (ranked["score"] / 100).clip(lower=weight_floor), top_n)
+    overall = [it["sentence"] for it in overall_items]
 
     # High-credibility-only consensus (>= HIGH_THRESHOLD score)
     high_cred_sentences = [s for s, c in zip(all_sentences, sentence_source_credibility) if c >= HIGH_THRESHOLD]
@@ -144,6 +153,8 @@ def credibility_aware_summary(df: pd.DataFrame, product_id: str = None, top_n: i
 
     return {
         "overall_summary": " ".join(overall),
+        "overall_items": overall_items,
+        "sources": [it["review_id"] for it in overall_items],
         "high_credibility_consensus": " ".join(consensus) if consensus else "Not enough high-credibility reviews yet.",
         "low_credibility_flags": flags,
     }
