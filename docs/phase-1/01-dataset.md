@@ -25,7 +25,7 @@ Measured on this repo today:
 | Labels | `OR` (original / genuine) 20,215 · `CG` (computer-generated / fake) 20,197 |
 | Categories (`product_id`) | 10 Amazon categories, 3,588–4,730 reviews each |
 | Pipeline time, full set | ~11 s (preprocess 1 s, features 3.4 s, train 2 s, score+explain 4.5 s) |
-| Current RF on full set | accuracy 0.753 · precision 0.718 · recall 0.836 · F1 0.772 · ROC-AUC 0.824 |
+| Current RF on full set (shared 20% test split) | accuracy 0.756 · precision 0.728 · recall 0.819 · F1 0.771 · ROC-AUC 0.822 |
 
 Those RF numbers are the **baseline** that features 02 and 04 compare against.
 

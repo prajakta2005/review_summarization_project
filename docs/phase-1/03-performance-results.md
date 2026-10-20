@@ -27,7 +27,7 @@ Review Explorer.
 
 | File | Purpose |
 |---|---|
-| `src/performance.py` | `per_class_report(y_true, y_pred)`, `per_category_metrics(pred_df, df)`, `threshold_sweep(y_true, score, steps=101)`, `mcnemar(y_true, pred_a, pred_b)` (statsmodels or a manual chi² with continuity correction) |
+| `src/performance.py` | `per_class_report(y_true, y_pred)`, `per_category_metrics(pred_df, df)`, `threshold_sweep(y_true, score, steps=101)`, `mcnemar(y_true, pred_a, pred_b)` (scipy: exact binomial when there are fewer than 25 disagreements, otherwise chi² with continuity correction) |
 | `experiments/run_cross_validation.py` | 5-fold `StratifiedKFold(shuffle=True, random_state=42)` for the classical models in `model_zoo` (BERT excluded, too expensive; say so on the page) → `results/cv_results.json` |
 | `experiments/run_significance.py` | Reads `results/predictions/*.csv`, runs McNemar `rf_handcrafted` vs every other model → `results/significance.json` |
 | `src/charts/performance.py` | `confusion_matrix_heatmap(cm, normalize)`, `roc_curves(models)`, `pr_curves(models)`, `threshold_curve(sweep)`, `per_category_bar(df)`, `cv_box(cv_results)` |
@@ -41,7 +41,7 @@ Review Explorer.
 | `pages/10_Review_Explorer.py` | Remove the evaluation expander and replace it with `st.page_link("pages/04_Performance.py", label="See full performance results →")` |
 | `src/credibility_model.py` | Move the High/Medium/Low cut-offs (70 / 40) into module constants `HIGH_THRESHOLD`, `LOW_THRESHOLD`, so the page can show where they sit on the threshold curve. **Only** `score_reviews` and `summarizer.py` read them. |
 | `src/summarizer.py` | Replace the literal `70` / `40` with the constants from `credibility_model` |
-| `requirements.txt` | `statsmodels` (if using its McNemar), otherwise nothing |
+| `requirements.txt` | nothing (McNemar is implemented with scipy) |
 
 ## `results/cv_results.json` → `data`
 

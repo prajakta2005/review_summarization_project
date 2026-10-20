@@ -49,7 +49,7 @@ a free **Google Colab T4 GPU**. The plan:
 
 1. Use `results/split_indices.json` (from 01), so Colab uses the identical split.
 2. `notebooks/bert_finetune_colab.ipynb`: upload the CSV + split file, then tokenize (`max_length=256`), use `Trainer` with `lr=2e-5, batch=32, epochs=2, weight_decay=0.01, seed=42`, and predict on the test rows.
-3. Download **only** `bert_predictions.csv` (`review_id, y_true, proba_genuine`) and `bert_meta.json` (train time, inference time, epochs, model name) into `results/predictions/`.
+3. Download **only** `distilbert.csv` (`review_id, y_true, y_pred, score`, the same format as the classical models) and `distilbert_meta.json` (train time, inference time, epochs, model name) into `results/predictions/`.
 4. `run_model_comparison.py` merges the BERT predictions into the same metrics computation as the other models.
 5. Optional: save the fine-tuned weights to Google Drive (about 260 MB, **never** in git). The Live Demo (08) uses the RF, not BERT.
 
