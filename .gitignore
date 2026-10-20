@@ -8,3 +8,4 @@ results/predictions/*.joblib
 .pytest_cache/
 __pycache__/
 *.pyc
+.venv/
