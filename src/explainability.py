@@ -21,6 +21,7 @@ once you have a larger real dataset (mention this in your report).
 
 import numpy as np
 import pandas as pd
+from sklearn.inspection import permutation_importance
 
 from features import FEATURE_COLUMNS
 
@@ -66,6 +67,15 @@ HIGH_IS_CREDIBLE = {
 def global_feature_importance(clf) -> pd.Series:
     importances = pd.Series(clf.feature_importances_, index=FEATURE_COLUMNS)
     return importances.sort_values(ascending=False)
+
+
+def permutation_feature_importance(clf, X: pd.DataFrame, y: pd.Series, n_repeats: int = 5) -> pd.Series:
+    """How much the score (F1) drops when each feature's values are shuffled.
+    Unlike feature_importances_ (impurity), this isn't biased toward
+    features with many distinct values. Use held-out rows for X, y."""
+    result = permutation_importance(clf, X[FEATURE_COLUMNS], y, scoring="f1",
+                                    n_repeats=n_repeats, random_state=42, n_jobs=-1)
+    return pd.Series(result.importances_mean, index=FEATURE_COLUMNS).sort_values(ascending=False)
 
 
 def explain_review(row: pd.Series, dataset_stats: pd.DataFrame, top_k: int = 3) -> dict:
