@@ -1,0 +1,6 @@
+.env
+review_intel.db
+models/*.joblib
+models/registry.json
+__pycache__/
+*.pyc

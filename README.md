@@ -1,0 +1,91 @@
+# Explainable Consumer Review Intelligence System
+
+Working prototype demonstrating the patented workflow:
+**Reviews → Preprocessing → Feature Extraction → Credibility Assessment →
+Explainability → Credibility-Aware Summarization → Dashboard**
+
+## Run it
+
+```bash
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+Opens at http://localhost:8501. A bundled sample dataset (`data/sample_reviews.csv`)
+is loaded by default; you can also upload your own CSV with columns:
+`review_id, product_id, reviewer_id, rating, timestamp, review_text`.
+
+## Using a Kaggle dataset (recommended upgrade)
+
+The bundled sample has only 15 hand-written rows. For a real evaluation, use:
+**[Fake Reviews Dataset (mexwell/fake-reviews-dataset)](https://www.kaggle.com/datasets/mexwell/fake-reviews-dataset)**
+— 40k reviews, 50:50 real/fake balance, with REAL ground-truth labels (not
+heuristic guesses).
+
+Steps:
+1. Download it from Kaggle (free account needed) → save as `data/kaggle_fake_reviews.csv`
+2. Run `python src/kaggle_adapter.py` → produces `data/kaggle_adapted.csv` in our schema
+3. Upload `kaggle_adapted.csv` via the app's sidebar instead of the bundled sample
+
+`credibility_model.py` automatically detects the `ground_truth_label` column
+this adapter produces and trains on **real labels** instead of pseudo-labels
+— this is what lets you report honest accuracy/precision/recall/ROC-AUC
+numbers in your evaluation section.
+
+## What each file does
+
+| File | Module (per spec) |
+|---|---|
+| `src/preprocessing.py` | Review Preprocessing |
+| `src/features.py` | Feature Extraction & Analysis |
+| `src/credibility_model.py` | Credibility Assessment Engine |
+| `src/explainability.py` | Explainable AI Module |
+| `src/summarizer.py` | Automated + Credibility-Aware Summarization |
+| `app.py` | Product/Review Dashboard |
+
+## Honest scope notes — read before your viva/demo
+
+This was built in one session inside a sandboxed environment with **no internet
+access to model hubs** (HuggingFace, NLTK downloads, etc.) and **no real labeled
+fake-review dataset**. Two deliberate simplifications follow directly from that,
+and you should be ready to explain them if asked:
+
+1. **Sentiment analysis** uses a small hand-built positive/negative word lexicon,
+   not a pretrained model. Swap in NLTK's VADER or a HuggingFace sentiment
+   pipeline (`from transformers import pipeline`) once you have internet access —
+   the rest of `features.py` doesn't need to change, only `sentiment_score()`.
+
+2. **Credibility labels for training** are heuristic pseudo-labels (weak
+   supervision) generated from the same features the model learns on — see the
+   big comment at the top of `credibility_model.py`. This is a legitimate way to
+   bootstrap a system before real labeled data exists, but any accuracy/precision
+   numbers from this data are **not a real benchmark**. Before writing your
+   evaluation section, retrain on a real labeled dataset (e.g. the Yelp/Amazon
+   academic fake-review datasets, or your own team's hand-labeled sample).
+
+3. **Summarization is extractive** (TF-IDF sentence ranking), not abstractive/LLM.
+   This is actually defensible as a design choice for a credibility system —
+   every summary sentence is a real, traceable sentence from a real review, so
+   nothing is hallucinated. If you want abstractive summaries, swap
+   `rank_sentences()` in `summarizer.py` for a call to an LLM API or a
+   HuggingFace summarization pipeline.
+
+## Not yet built (documented, not faked)
+
+Per the original spec, these need real infrastructure/time investment beyond a
+single session and are intentionally left as next steps rather than stubbed out
+with fake code:
+- Persistent database storage (currently everything is in-memory/CSV)
+- External review-platform API integrations
+- Model versioning / retraining pipeline
+- Formal evaluation report (accuracy/precision/recall/ROC-AUC) — needs real
+  labeled data first, see point 2 above
+
+## Extending the feature set
+
+`features.py` currently has 6 interpretable features (sentiment, length,
+exclamation density, repetition ratio, specificity, rating-text consistency).
+To add "semantic features using embeddings" as in the original spec, add a new
+function there, add its name to `FEATURE_COLUMNS`, and add its interpretation
+to `FEATURE_MEANING` / `HIGH_IS_CREDIBLE` in `explainability.py` — the model
+and dashboard will pick it up automatically.
