@@ -74,9 +74,24 @@ def _shap_cache(key, _res):
     return shap_values(_res.clf, _res.df)
 
 
+def missing_package_stop(err: ModuleNotFoundError):
+    """A package from requirements.txt is missing -- usually because the
+    `streamlit` command belongs to a different Python than the one the
+    requirements were installed into."""
+    st.error(
+        f"Missing Python package `{err.name}`. Install the requirements into the same Python "
+        "that runs Streamlit:\n\n```\npython -m pip install -r requirements.txt\n"
+        "python -m streamlit run app.py\n```"
+    )
+    st.stop()
+
+
 def get_shap_values(res: PipelineResult):
     """SHAP contributions (n_reviews x 6) for the loaded dataset, cached."""
-    return _shap_cache(pipeline_key() + (len(res.df),), res)
+    try:
+        return _shap_cache(pipeline_key() + (len(res.df),), res)
+    except ModuleNotFoundError as err:
+        missing_package_stop(err)
 
 
 @st.cache_resource(show_spinner="Loading text model for LIME...")
@@ -92,4 +107,7 @@ def _text_model_cache(key, _res):
 
 
 def get_text_model(res: PipelineResult):
-    return _text_model_cache(pipeline_key() + (len(res.df),), res)
+    try:
+        return _text_model_cache(pipeline_key() + (len(res.df),), res)
+    except ModuleNotFoundError as err:
+        missing_package_stop(err)

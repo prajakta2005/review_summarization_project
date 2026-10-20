@@ -4,9 +4,9 @@
 
 ```bash
 git checkout main && git pull            # or dev, whichever you present from
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 python -m pytest -q                      # should say 52 passed
-streamlit run app.py
+python -m streamlit run app.py
 ```
 
 - Open http://localhost:8501, choose **Kaggle fake-reviews dataset (≈40k reviews)** on Home and
@@ -47,7 +47,8 @@ If you have extra time: **Explainability → Method Agreement** (SHAP is the mos
 | "No results yet" box on a page | `results/` is missing. Run `python experiments/run_all.py` (17 min), or show the screenshot |
 | Gemini checkbox shows "unavailable" | No API key: say "it falls back to the built-in explanation" and move on |
 | App won't start | Present from [`docs/screenshots/`](../screenshots/): S2, S3 and S5 cover the demo |
-| Port in use | `streamlit run app.py --server.port 8502` |
+| Port in use | `python -m streamlit run app.py --server.port 8502` |
+| `ModuleNotFoundError` on a page | The `streamlit` command uses another Python: run `python -m pip install -r requirements.txt` and `python -m streamlit run app.py` |
 
 ## Questions you'll probably get
 
