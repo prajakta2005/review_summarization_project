@@ -159,3 +159,26 @@ def master_tables(results: dict = None) -> dict:
                                                                              for k, v in m.items()}})
         tables["T7_summarization"] = pd.DataFrame(rows)
     return tables
+
+
+TABLE_TITLES = {
+    "T1_dataset": "T1. Dataset",
+    "T2_model_comparison": "T2. Model comparison (shared 20% test split)",
+    "T3_cross_validation": "T3. 5-fold cross-validation (mean ± std)",
+    "T4_significance": "T4. McNemar significance tests between models",
+    "T5_ablation": "T5. Ablation: Random Forest F1 when one feature is removed (5-fold CV)",
+    "T6_explanation_agreement": "T6. Agreement between explanation methods",
+    "T7_summarization": "T7. Summarization: standard vs credibility-aware (averaged over categories)",
+}
+
+
+def to_markdown_table(df: pd.DataFrame) -> str:
+    """Plain GitHub-flavoured Markdown table (no tabulate dependency)."""
+    def fmt(v):
+        if isinstance(v, float):
+            return f"{v:.4f}"
+        return str(v).replace("|", "\\|")
+    header = "| " + " | ".join(str(c) for c in df.columns) + " |"
+    sep = "|" + "|".join("---" for _ in df.columns) + "|"
+    rows = ["| " + " | ".join(fmt(v) for v in row) + " |" for row in df.itertuples(index=False)]
+    return "\n".join([header, sep] + rows)
