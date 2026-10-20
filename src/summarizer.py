@@ -32,6 +32,8 @@ import numpy as np
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 
+from credibility_model import HIGH_THRESHOLD, LOW_THRESHOLD
+
 
 def split_sentences(text: str):
     # Simple regex sentence splitter (no internet access for nltk's
@@ -81,13 +83,13 @@ def credibility_aware_summary(df: pd.DataFrame, product_id: str = None, top_n: i
     # Overall summary: all sentences, credibility-weighted
     overall = rank_sentences(all_sentences, all_weights, top_n)
 
-    # High-credibility-only consensus (>=70 score)
-    high_cred_sentences = [s for s, c in zip(all_sentences, sentence_source_credibility) if c >= 70]
+    # High-credibility-only consensus (>= HIGH_THRESHOLD score)
+    high_cred_sentences = [s for s, c in zip(all_sentences, sentence_source_credibility) if c >= HIGH_THRESHOLD]
     high_cred_weights = [1.0] * len(high_cred_sentences)
     consensus = rank_sentences(high_cred_sentences, high_cred_weights, top_n)
 
     # Low-credibility flags: surfaced, not deleted, per the spec
-    low_cred_rows = subset[subset["credibility_score"] < 40]
+    low_cred_rows = subset[subset["credibility_score"] < LOW_THRESHOLD]
     flags = [
         {"review_id": r["review_id"], "credibility_score": r["credibility_score"],
          "excerpt": r["clean_text"][:120]}
