@@ -22,7 +22,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-from dashboard import SOURCE_LABELS, require_pipeline
+from dashboard import SOURCE_LABELS, require_pipeline, get_shap_values
 from explainability import global_feature_importance
 
 st.set_page_config(page_title="Review Credibility Intelligence", layout="wide")
@@ -84,13 +84,22 @@ with c1:
                  color_discrete_map={"High": "#2ecc71", "Medium": "#f1c40f", "Low": "#e74c3c"})
     st.plotly_chart(fig, use_container_width=True)
 with c2:
-    importance = global_feature_importance(clf).reset_index()
+    kind = st.radio("Importance measure", ["Mean |SHAP|", "RF impurity"], horizontal=True)
+    if kind == "RF impurity":
+        importance = global_feature_importance(clf).reset_index()
+        caption = ("Random Forest impurity importance, which can be biased toward features with many "
+                   "distinct values (like length).")
+    else:
+        from features import FEATURE_COLUMNS
+        shap_vals = get_shap_values(res)
+        importance = (pd.Series(abs(shap_vals).mean(axis=0), index=FEATURE_COLUMNS)
+                      .sort_values(ascending=False).reset_index())
+        caption = "Mean |SHAP|: the average number of probability points each feature moves a review's score."
     importance.columns = ["feature", "importance"]
     fig2 = px.bar(importance, x="importance", y="feature", orientation="h",
                   title="Which signals matter most (global feature importance)")
     st.plotly_chart(fig2, use_container_width=True)
-    st.caption("This is Random Forest impurity importance, which can be biased toward features with many "
-               "distinct values (like length).")
+    st.caption(caption)
     st.page_link("pages/07_Ablation_Study.py", label="See what each feature really contributes (ablation) →")
 
 st.info("Use the pages in the sidebar to explore each module. "

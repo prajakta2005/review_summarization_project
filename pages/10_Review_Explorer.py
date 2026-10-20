@@ -11,7 +11,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 import streamlit as st
 import pandas as pd
 
-from dashboard import require_pipeline
+from dashboard import require_pipeline, get_shap_values
 from summarizer import credibility_aware_summary
 from comparison import compare_products
 from storage import save_reviews, save_product_summary, DB_PATH
@@ -67,26 +67,44 @@ st.markdown(f"**Review text:** {row['review_text']}")
 score_color = {"High": "green", "Medium": "orange", "Low": "red"}[row["credibility_label"]]
 st.markdown(f"**Credibility: :{score_color}[{row['credibility_score']}% — {row['credibility_label']}]**  |  Confidence: {row['confidence']}%")
 
+method = st.radio("Explanation method", ["SHAP (follows the model)", "z-score (original)"], horizontal=True,
+                  help="SHAP uses the model's exact feature contributions; z-score compares the review "
+                       "to the dataset average. See the Explainability page for how they compare.")
+shap_factors = None
+if method.startswith("SHAP"):
+    from explainability import explain_review_shap
+    from shap_explainer import base_value, shap_row_factors
+    from features import FEATURE_COLUMNS
+    from charts.explainability import shap_waterfall
+    i = explained.index.get_loc(row.name)
+    shap_row = get_shap_values(res)[i]
+    explanation = explain_review_shap(row, shap_row, explained[FEATURE_COLUMNS].mean())
+    shap_factors = shap_row_factors(shap_row, row)
+else:
+    explanation = {k: row[k] for k in ["positive_factors", "negative_factors", "explanation_text"]}
+
 pf, nf = st.columns(2)
 with pf:
     st.markdown("**✅ Positive contributing factors**")
-    for f in row["positive_factors"]:
+    for f in explanation["positive_factors"]:
         st.markdown(f"- {f}")
 with nf:
     st.markdown("**⚠️ Negative contributing factors**")
-    for f in row["negative_factors"]:
+    for f in explanation["negative_factors"]:
         st.markdown(f"- {f}")
 
 st.markdown("**Natural-language explanation:**")
-st.info(row["explanation_text"])
+st.info(explanation["explanation_text"])
+if shap_factors:
+    st.plotly_chart(shap_waterfall(shap_factors, base_value(clf)), use_container_width=True)
 
 use_gemini = st.checkbox("Also generate a richer explanation with Gemini", value=False)
 if use_gemini:
     from llm_explainer import generate_llm_explanation_safe
     with st.spinner("Asking Gemini to narrate the computed factors..."):
         llm_text = generate_llm_explanation_safe(
-            row, row["positive_factors"], row["negative_factors"],
-            fallback_text=row["explanation_text"]
+            row, explanation["positive_factors"], explanation["negative_factors"],
+            fallback_text=explanation["explanation_text"]
         )
     st.markdown("**Gemini explanation:**")
     st.success(llm_text)
