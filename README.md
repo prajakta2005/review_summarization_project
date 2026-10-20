@@ -28,22 +28,31 @@ pytest
 
 The feature roadmap (who builds what, branches, commits) is in [docs/README.md](docs/README.md).
 
-## Using a Kaggle dataset (recommended upgrade)
+## The full dataset (≈40k labeled reviews)
 
-The bundled sample has only 15 hand-written rows. For a real evaluation, use:
+The bundled sample has only 15 hand-written rows. The full
 **[Fake Reviews Dataset (mexwell/fake-reviews-dataset)](https://www.kaggle.com/datasets/mexwell/fake-reviews-dataset)**
-— 40k reviews, 50:50 real/fake balance, with REAL ground-truth labels (not
-heuristic guesses).
+is bundled at `data/fake reviews dataset.csv`: 40,432 reviews (40,412 after removing
+20 exact duplicates) from 10 Amazon categories, balanced 50:50 between `OR`
+(original, human-written = genuine) and `CG` (computer-generated = fake). It was
+introduced by Salminen et al. (2022), *Journal of Retailing and Consumer Services*
+(verify the exact reference before citing).
 
-Steps:
-1. Download it from Kaggle (free account needed) → save as `data/kaggle_fake_reviews.csv`
-2. Run `python src/kaggle_adapter.py` → produces `data/kaggle_adapted.csv` in our schema
-3. Upload `kaggle_adapted.csv` via the app's sidebar instead of the bundled sample
+To use it, choose **Kaggle fake-reviews dataset** on the Home page. All rows are used
+by default (about 11 s on first load, then cached); the *Max rows* slider takes a
+stratified sample if you want something faster. The **Dataset** page profiles it.
 
-`credibility_model.py` automatically detects the `ground_truth_label` column
-this adapter produces and trains on **real labels** instead of pseudo-labels
-— this is what lets you report honest accuracy/precision/recall/ROC-AUC
-numbers in your evaluation section.
+`credibility_model.py` automatically detects the `ground_truth_label` column the
+adapter produces and trains on **real labels** instead of pseudo-labels, which is
+what makes the accuracy/precision/recall/ROC-AUC numbers citable. Note that in this
+dataset `product_id` is the Amazon category, so "product" summaries are category summaries.
+
+To regenerate the full-dataset profile and the shared train/test split
+(`results/split_indices.json`, also used by the BERT notebook):
+
+```bash
+python experiments/run_dataset_profile.py
+```
 
 ## What each file does
 
