@@ -10,22 +10,18 @@ from sklearn.metrics import (
     accuracy_score, precision_score, recall_score, f1_score,
     roc_auc_score, confusion_matrix, classification_report
 )
-from sklearn.model_selection import train_test_split
 
 from features import FEATURE_COLUMNS
-from credibility_model import build_training_labels
+from credibility_model import labeled_split
 
 
 def evaluate_model(clf, df: pd.DataFrame) -> dict:
-    df = build_training_labels(df)
+    df, _, test_idx = labeled_split(df)
     label_source = ("real_ground_truth" if "ground_truth_label" in df.columns
                      and df["ground_truth_label"].notna().all() else "heuristic_pseudo_labels")
 
-    X = df[FEATURE_COLUMNS]
-    y = df["label"]
-    _, X_test, _, y_test = train_test_split(
-        X, y, test_size=0.25, random_state=42, stratify=y if y.nunique() > 1 else None
-    )
+    X_test = df[FEATURE_COLUMNS].iloc[test_idx]
+    y_test = df["label"].iloc[test_idx]
 
     y_pred = clf.predict(X_test)
     y_proba = clf.predict_proba(X_test)[:, list(clf.classes_).index(1)]

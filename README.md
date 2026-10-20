@@ -11,9 +11,22 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-Opens at http://localhost:8501. A bundled sample dataset (`data/sample_reviews.csv`)
-is loaded by default; you can also upload your own CSV with columns:
+Opens at http://localhost:8501. It's a multipage app: **Home** (`app.py`) picks the
+data source and shows the overview, and each module/feature has its own page in
+`pages/` (listed in the sidebar). The data source chosen on Home is used by every page.
+
+A bundled sample dataset (`data/sample_reviews.csv`) is loaded by default; you can
+also upload your own CSV with columns:
 `review_id, product_id, reviewer_id, rating, timestamp, review_text`.
+
+Run the tests with:
+
+```bash
+pip install -r requirements-dev.txt
+pytest
+```
+
+The feature roadmap (who builds what, branches, commits) is in [docs/README.md](docs/README.md).
 
 ## Using a Kaggle dataset (recommended upgrade)
 
@@ -41,7 +54,13 @@ numbers in your evaluation section.
 | `src/credibility_model.py` | Credibility Assessment Engine |
 | `src/explainability.py` | Explainable AI Module |
 | `src/summarizer.py` | Automated + Credibility-Aware Summarization |
-| `app.py` | Product/Review Dashboard |
+| `src/pipeline.py` | End-to-end pipeline used by the dashboard and experiment scripts |
+| `src/splits.py` | The single shared train/test split (stratified, 20%, seed 42) |
+| `src/results_io.py` | Reads/writes experiment outputs in `results/` |
+| `src/dashboard.py` | Streamlit helpers shared by all pages |
+| `app.py` | Dashboard Home (data source + overview) |
+| `pages/` | One dashboard page per module/feature |
+| `experiments/` | Offline experiment scripts that write `results/*.json` |
 
 ## Honest scope notes — read before your viva/demo
 

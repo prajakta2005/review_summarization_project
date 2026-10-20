@@ -25,9 +25,9 @@ import joblib
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
 
 from features import FEATURE_COLUMNS
+from splits import train_test_indices
 
 MODEL_PATH = "models/credibility_rf.joblib"
 
@@ -67,15 +67,20 @@ def build_training_labels(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def train_model(df: pd.DataFrame):
+def labeled_split(df: pd.DataFrame):
+    """Returns (labeled_df, train_idx, test_idx) using the shared split from
+    splits.py, so training and evaluation always agree on the held-out rows."""
     df = build_training_labels(df)
+    train_idx, test_idx = train_test_indices(df["label"])
+    return df, train_idx, test_idx
+
+
+def train_model(df: pd.DataFrame):
+    df, train_idx, test_idx = labeled_split(df)
     X = df[FEATURE_COLUMNS]
     y = df["label"]
-
-    # Small dataset -> keep test split small too, just to demonstrate the pipeline
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.25, random_state=42, stratify=y if y.nunique() > 1 else None
-    )
+    X_train, X_test = X.iloc[train_idx], X.iloc[test_idx]
+    y_train, y_test = y.iloc[train_idx], y.iloc[test_idx]
 
     clf = RandomForestClassifier(
         n_estimators=200, max_depth=4, random_state=42, class_weight="balanced"
