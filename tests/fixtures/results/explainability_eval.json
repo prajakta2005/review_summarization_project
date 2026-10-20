@@ -1,0 +1,94 @@
+{
+ "meta": {
+  "name": "explainability_eval",
+  "generated_at": "2026-01-01T00:00:00+00:00",
+  "git_commit": "abc1234",
+  "dataset": "kaggle_full",
+  "n_rows": 100,
+  "split": {
+   "test_size": 0.2,
+   "seed": 42
+  },
+  "script": "experiments/explainability_eval.py"
+ },
+ "data": {
+  "n_explained": 10,
+  "base_value": 0.5,
+  "global_shap": {
+   "sentiment": 0.01,
+   "length": 0.01,
+   "exclaim_density": 0.01,
+   "repetition_ratio": 0.01,
+   "specificity": 0.01,
+   "rating_consistency": 0.01
+  },
+  "agreement": {
+   "top1_match": {
+    "zscore_vs_shap": 0.3,
+    "zscore_vs_lime": 0.3,
+    "shap_vs_lime": 0.5
+   },
+   "top3_jaccard": {
+    "zscore_vs_shap": 0.4,
+    "zscore_vs_lime": 0.4,
+    "shap_vs_lime": 0.6
+   },
+   "kendall_tau": {
+    "zscore_vs_shap": 0.1,
+    "zscore_vs_lime": 0.1,
+    "shap_vs_lime": 0.3
+   }
+  },
+  "faithfulness": {
+   "k": [
+    1,
+    2,
+    3
+   ],
+   "prob_change": {
+    "zscore": [
+     0.06,
+     0.08,
+     0.09
+    ],
+    "shap": [
+     0.1,
+     0.12,
+     0.14
+    ],
+    "lime": [
+     0.09,
+     0.12,
+     0.13
+    ],
+    "random": [
+     0.03,
+     0.06,
+     0.08
+    ]
+   }
+  },
+  "examples": [
+   {
+    "review_id": 1,
+    "label": "fake",
+    "score": 0.3,
+    "text": "x",
+    "shap": {
+     "sentiment": -0.01,
+     "length": -0.01,
+     "exclaim_density": -0.01,
+     "repetition_ratio": -0.01,
+     "specificity": -0.01,
+     "rating_consistency": -0.01
+    },
+    "lime_words": [
+     [
+      "great",
+      -0.1
+     ]
+    ]
+   }
+  ]
+ }
+}

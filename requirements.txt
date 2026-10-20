@@ -2,7 +2,13 @@ pandas
 scikit-learn
 joblib
 streamlit
-plotly
+plotly>=6.1.1
 numpy
 google-genai
 python-dotenv
+scipy
+shap
+lime
+matplotlib
+rouge-score
+kaleido>=1.0

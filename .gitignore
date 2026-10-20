@@ -2,5 +2,10 @@
 review_intel.db
 models/*.joblib
 models/registry.json
+models/bert/
+results/predictions/*.joblib
+.streamlit/secrets.toml
+.pytest_cache/
 __pycache__/
 *.pyc
+.venv/

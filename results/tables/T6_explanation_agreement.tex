@@ -1,0 +1,12 @@
+\begin{table}
+\caption{T6. Agreement between explanation methods}
+\begin{tabular}{lrrr}
+\toprule
+methods & top-1 match & top-3 Jaccard & Kendall tau \\
+\midrule
+zscore vs shap & 0.3180 & 0.3738 & 0.0413 \\
+zscore vs lime & 0.2700 & 0.3150 & -0.0640 \\
+shap vs lime & 0.5380 & 0.6502 & 0.5960 \\
+\bottomrule
+\end{tabular}
+\end{table}

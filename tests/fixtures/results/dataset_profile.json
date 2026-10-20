@@ -1,0 +1,39 @@
+{
+ "meta": {
+  "name": "dataset_profile",
+  "generated_at": "2026-01-01T00:00:00+00:00",
+  "git_commit": "abc1234",
+  "dataset": "kaggle_full",
+  "n_rows": 100,
+  "split": {
+   "test_size": 0.2,
+   "seed": 42
+  },
+  "script": "experiments/dataset_profile.py"
+ },
+ "data": {
+  "n_raw": 102,
+  "n_after_preprocess": 100,
+  "duplicates_removed": 2,
+  "labeled": true,
+  "label_counts": {
+   "fake": 50,
+   "genuine": 50
+  },
+  "n_categories": 2,
+  "categories": [
+   {
+    "category": "A",
+    "fake": 25,
+    "genuine": 25,
+    "total": 50
+   },
+   {
+    "category": "B",
+    "fake": 25,
+    "genuine": 25,
+    "total": 50
+   }
+  ]
+ }
+}

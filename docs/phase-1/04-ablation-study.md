@@ -118,7 +118,7 @@ can then quote the page directly.
 
 ## Done when
 
-- `python experiments/run_ablation.py` finishes on the full dataset (expected to take a few minutes: about 6+6+21+3 RF fits × 5 folds), and `--quick` finishes in under 1 minute.
+- `python experiments/run_ablation.py` finishes on the full dataset (expected to take a few minutes: about 6+6+21+3 RF fits × 5 folds), and `--quick` finishes in about 1.5 minutes.
 - The page shows all tabs for RF and LR.
 - The Rankings tab shows SHAP once 05 is merged, and says "SHAP pending" before that.
 

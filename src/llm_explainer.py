@@ -47,13 +47,30 @@ def _get_client():
     return _client
 
 
-def generate_llm_explanation(review_row, positive_factors, negative_factors, model: str = "gemini-2.0-flash") -> str:
+def _format_shap(shap_factors) -> str:
+    """[(feature, value, contribution), ...] -> one line per feature, largest first."""
+    return "\n".join(
+        f"- {feature} = {value:.3g}: {contribution * 100:+.1f} points "
+        f"({'toward credible' if contribution > 0 else 'toward fake'})"
+        for feature, value, contribution in shap_factors
+    )
+
+
+def generate_llm_explanation(review_row, positive_factors, negative_factors, model: str = "gemini-2.0-flash",
+                             shap_factors=None) -> str:
     """review_row: dict/Series with review_text, credibility_score, credibility_label.
     positive_factors / negative_factors: lists of plain-English phrases,
     already computed by explainability.explain_review() -- passed in so
     Gemini narrates REAL computed factors, never invents its own.
+    shap_factors: optional [(feature, value, contribution)] from
+    shap_explainer.shap_row_factors -- the model's exact contributions, so
+    Gemini can say which factor mattered MOST.
     """
     client = _get_client()
+    shap_block = ""
+    if shap_factors:
+        shap_block = ("\nExact contribution of each signal to this score (SHAP, in percentage points of "
+                      "credibility; mention the biggest ones first):\n" + _format_shap(shap_factors) + "\n")
 
     prompt = f"""You are explaining an automated review-credibility assessment to a
 non-technical user. Do NOT invent any new facts, numbers, or claims about the
@@ -64,7 +81,7 @@ Review text: "{review_row['review_text']}"
 Credibility score: {review_row['credibility_score']}% ({review_row['credibility_label']})
 Positive factors (support credibility): {positive_factors if positive_factors else "none"}
 Negative factors (raise concern): {negative_factors if negative_factors else "none"}
-
+{shap_block}
 Write a short, natural-language explanation of why this review received this
 credibility assessment, using only the factors listed above."""
 
@@ -72,12 +89,14 @@ credibility assessment, using only the factors listed above."""
     return response.text.strip()
 
 
-def generate_llm_explanation_safe(review_row, positive_factors, negative_factors, fallback_text: str) -> str:
+def generate_llm_explanation_safe(review_row, positive_factors, negative_factors, fallback_text: str,
+                                  shap_factors=None) -> str:
     """Never crashes the app -- falls back to the rule-based explanation
     text if the API key is missing, the network call fails, or Gemini
-    returns something unusable. Call this one from app.py.
+    returns something unusable. Call this one from the dashboard.
     """
     try:
-        return generate_llm_explanation(review_row, positive_factors, negative_factors)
+        return generate_llm_explanation(review_row, positive_factors, negative_factors,
+                                        shap_factors=shap_factors)
     except Exception as e:
         return f"{fallback_text}\n\n_(Gemini explanation unavailable: {e})_"
