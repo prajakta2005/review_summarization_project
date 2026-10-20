@@ -27,15 +27,16 @@ def load_reviews(csv_path: str) -> pd.DataFrame:
     return df
 
 
-def drop_duplicates(df: pd.DataFrame) -> pd.DataFrame:
+def drop_duplicates(df: pd.DataFrame):
     """Remove exact duplicate review text (common fake-review pattern:
-    the same text posted under multiple reviewer_ids)."""
+    the same text posted under multiple reviewer_ids).
+    Returns (deduplicated df, number of rows removed)."""
     before = len(df)
     df = df.drop_duplicates(subset=["review_text"]).reset_index(drop=True)
     removed = before - len(df)
     if removed:
         print(f"[preprocessing] Removed {removed} duplicate review(s).")
-    return df
+    return df, removed
 
 
 def handle_missing(df: pd.DataFrame) -> pd.DataFrame:
@@ -63,10 +64,14 @@ def preprocess(df: pd.DataFrame) -> pd.DataFrame:
     """Full preprocessing pipeline. Adds a `clean_text` column while
     keeping the original `review_text` (raw) intact for feature extraction.
     """
-    df = drop_duplicates(df)
+    n_raw = len(df)
+    df, removed = drop_duplicates(df)
     df = handle_missing(df)
     df["clean_text"] = df["review_text"].apply(clean_text)
     df["clean_text_lower"] = df["clean_text"].str.lower()
+    # kept for the dataset profile (pages/02_Dataset.py)
+    df.attrs["n_raw"] = n_raw
+    df.attrs["duplicates_removed"] = removed
     return df
 
 
