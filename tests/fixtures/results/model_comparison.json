@@ -1,0 +1,123 @@
+{
+ "meta": {
+  "name": "model_comparison",
+  "generated_at": "2026-01-01T00:00:00+00:00",
+  "git_commit": "abc1234",
+  "dataset": "kaggle_full",
+  "n_rows": 100,
+  "split": {
+   "test_size": 0.2,
+   "seed": 42
+  },
+  "script": "experiments/model_comparison.py"
+ },
+ "data": {
+  "models": [
+   {
+    "model_id": "svm_tfidf",
+    "model": "SVM (linear)",
+    "feature_set": "tfidf",
+    "interpretable": false,
+    "accuracy": 0.95,
+    "precision": 0.94,
+    "recall": 0.96,
+    "f1": 0.95,
+    "f1_macro": 0.95,
+    "roc_auc": 0.99,
+    "pr_auc": 0.99,
+    "confusion_matrix": [
+     [
+      40,
+      10
+     ],
+     [
+      8,
+      42
+     ]
+    ],
+    "train_seconds": 5.0,
+    "predict_seconds": 1.0,
+    "n_train": 80,
+    "n_test": 20,
+    "roc_curve": {
+     "fpr": [
+      0,
+      0.1,
+      1
+     ],
+     "tpr": [
+      0,
+      0.9,
+      1
+     ]
+    },
+    "pr_curve": {
+     "recall": [
+      1,
+      0.5,
+      0
+     ],
+     "precision": [
+      0.5,
+      0.9,
+      1
+     ]
+    }
+   },
+   {
+    "model_id": "rf_handcrafted",
+    "model": "Random Forest",
+    "feature_set": "handcrafted",
+    "interpretable": true,
+    "accuracy": 0.75,
+    "precision": 0.72,
+    "recall": 0.82,
+    "f1": 0.77,
+    "f1_macro": 0.75,
+    "roc_auc": 0.82,
+    "pr_auc": 0.81,
+    "confusion_matrix": [
+     [
+      40,
+      10
+     ],
+     [
+      8,
+      42
+     ]
+    ],
+    "train_seconds": 2.0,
+    "predict_seconds": 0.1,
+    "n_train": 80,
+    "n_test": 20,
+    "roc_curve": {
+     "fpr": [
+      0,
+      0.3,
+      1
+     ],
+     "tpr": [
+      0,
+      0.7,
+      1
+     ]
+    },
+    "pr_curve": {
+     "recall": [
+      1,
+      0.5,
+      0
+     ],
+     "precision": [
+      0.5,
+      0.7,
+      1
+     ]
+    }
+   }
+  ],
+  "best_by_f1": "svm_tfidf",
+  "deployed_model": "rf_handcrafted",
+  "n_test": 20
+ }
+}

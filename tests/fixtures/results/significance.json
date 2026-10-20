@@ -1,0 +1,32 @@
+{
+ "meta": {
+  "name": "significance",
+  "generated_at": "2026-01-01T00:00:00+00:00",
+  "git_commit": "abc1234",
+  "dataset": "kaggle_full",
+  "n_rows": 100,
+  "split": {
+   "test_size": 0.2,
+   "seed": 42
+  },
+  "script": "experiments/significance.py"
+ },
+ "data": {
+  "alpha": 0.05,
+  "n_test": 20,
+  "pairs": [
+   {
+    "model_a": "rf_handcrafted",
+    "model_b": "svm_tfidf",
+    "accuracy_a": 0.75,
+    "accuracy_b": 0.95,
+    "b": 1,
+    "c": 5,
+    "statistic": 1.0,
+    "p_value": 0.2,
+    "method": "exact binomial",
+    "significant": false
+   }
+  ]
+ }
+}

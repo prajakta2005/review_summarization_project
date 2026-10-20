@@ -54,6 +54,20 @@ To regenerate the full-dataset profile and the shared train/test split
 python experiments/run_dataset_profile.py
 ```
 
+## Reproducing the results
+
+Every number in the report comes from scripts in `experiments/`, and the dashboard
+pages only read their output in `results/`. To regenerate everything at once:
+
+```bash
+python experiments/run_all.py          # ~17 min on a laptop
+```
+
+This writes `results/*.json`, the report tables (`docs/RESULTS.md`, `results/tables/*.csv|.tex`)
+and the report figures (`docs/figures/*.png`). DistilBERT is the one exception: train it with
+`notebooks/bert_finetune_colab.ipynb` on Google Colab (GPU), put its `distilbert.csv` and
+`distilbert_meta.json` in `results/predictions/`, then re-run `run_all.py`.
+
 ## What each file does
 
 | File | Module (per spec) |

@@ -53,9 +53,10 @@ def shap_beeswarm(shap_vals: np.ndarray, X: pd.DataFrame, max_points: int = 2000
 
 
 def shap_waterfall(row_factors: list, base: float) -> go.Figure:
-    """row_factors: [(feature, value, contribution), ...] from shap_row_factors."""
+    """row_factors: [(feature, value, contribution), ...] from shap_row_factors
+    (value may be None when only the contributions are known)."""
     factors = sorted(row_factors, key=lambda t: abs(t[2]))
-    labels = [f"{f} = {v:.3g}" for f, v, _ in factors]
+    labels = [f if v is None else f"{f} = {v:.3g}" for f, v, _ in factors]
     contribs = [c for _, _, c in factors]
     final = base + sum(contribs)
     fig = go.Figure(go.Waterfall(

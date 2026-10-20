@@ -1,0 +1,4 @@
+methods,top-1 match,top-3 Jaccard,Kendall tau
+zscore vs shap,0.318,0.3738,0.0413
+zscore vs lime,0.27,0.315,-0.064
+shap vs lime,0.538,0.6502,0.596

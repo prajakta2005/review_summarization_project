@@ -1,0 +1,18 @@
+\begin{table}
+\caption{T2. Model comparison (shared 20% test split)}
+\begin{tabular}{llrrrrrr}
+\toprule
+model & feature_set & accuracy & precision & recall & f1 & roc_auc & train_seconds \\
+\midrule
+SVM (linear) & hybrid & 0.9540 & 0.9469 & 0.9619 & 0.9544 & 0.9899 & 32.4860 \\
+SVM (linear) & tfidf & 0.9514 & 0.9432 & 0.9607 & 0.9518 & 0.9900 & 5.5980 \\
+Logistic Regression & hybrid & 0.9484 & 0.9424 & 0.9552 & 0.9488 & 0.9880 & 7.8560 \\
+Logistic Regression & tfidf & 0.9479 & 0.9400 & 0.9570 & 0.9484 & 0.9885 & 4.8480 \\
+Random Forest & tfidf & 0.9107 & 0.9012 & 0.9226 & 0.9118 & 0.9714 & 60.9460 \\
+Random Forest (tuned) & handcrafted & 0.8040 & 0.8022 & 0.8073 & 0.8047 & 0.8923 & 1.5510 \\
+SVM (RBF) & handcrafted & 0.7807 & 0.7682 & 0.8041 & 0.7857 & 0.8730 & 18.1230 \\
+Random Forest & handcrafted & 0.7562 & 0.7277 & 0.8189 & 0.7706 & 0.8222 & 1.9210 \\
+Logistic Regression & handcrafted & 0.7089 & 0.7015 & 0.7277 & 0.7143 & 0.7805 & 0.0380 \\
+\bottomrule
+\end{tabular}
+\end{table}

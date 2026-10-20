@@ -1,0 +1,238 @@
+{
+ "meta": {
+  "name": "ablation",
+  "generated_at": "2026-01-01T00:00:00+00:00",
+  "git_commit": "abc1234",
+  "dataset": "kaggle_full",
+  "n_rows": 100,
+  "split": {
+   "test_size": 0.2,
+   "seed": 42
+  },
+  "script": "experiments/ablation.py"
+ },
+ "data": {
+  "k": 3,
+  "models": {
+   "rf": {
+    "full": {
+     "f1": {
+      "mean": 0.76,
+      "std": 0.01,
+      "folds": [
+       0.76,
+       0.76,
+       0.76
+      ]
+     },
+     "accuracy": {
+      "mean": 0.75,
+      "std": 0.01,
+      "folds": [
+       0.75,
+       0.75,
+       0.75
+      ]
+     },
+     "roc_auc": {
+      "mean": 0.82,
+      "std": 0.01,
+      "folds": [
+       0.82,
+       0.82,
+       0.82
+      ]
+     }
+    },
+    "leave_one_out": [
+     {
+      "removed": "sentiment",
+      "f1": {
+       "mean": 0.56,
+       "std": 0.01,
+       "folds": [
+        0.56,
+        0.56,
+        0.56
+       ]
+      },
+      "accuracy": {
+       "mean": 0.7,
+       "std": 0.01,
+       "folds": [
+        0.7,
+        0.7,
+        0.7
+       ]
+      },
+      "roc_auc": {
+       "mean": 0.8,
+       "std": 0.01,
+       "folds": [
+        0.8,
+        0.8,
+        0.8
+       ]
+      },
+      "delta_f1": -0.2
+     },
+     {
+      "removed": "length",
+      "f1": {
+       "mean": 0.66,
+       "std": 0.01,
+       "folds": [
+        0.66,
+        0.66,
+        0.66
+       ]
+      },
+      "accuracy": {
+       "mean": 0.7,
+       "std": 0.01,
+       "folds": [
+        0.7,
+        0.7,
+        0.7
+       ]
+      },
+      "roc_auc": {
+       "mean": 0.8,
+       "std": 0.01,
+       "folds": [
+        0.8,
+        0.8,
+        0.8
+       ]
+      },
+      "delta_f1": -0.1
+     },
+     {
+      "removed": "exclaim_density",
+      "f1": {
+       "mean": 0.76,
+       "std": 0.01,
+       "folds": [
+        0.76,
+        0.76,
+        0.76
+       ]
+      },
+      "accuracy": {
+       "mean": 0.7,
+       "std": 0.01,
+       "folds": [
+        0.7,
+        0.7,
+        0.7
+       ]
+      },
+      "roc_auc": {
+       "mean": 0.8,
+       "std": 0.01,
+       "folds": [
+        0.8,
+        0.8,
+        0.8
+       ]
+      },
+      "delta_f1": -0.0
+     },
+     {
+      "removed": "repetition_ratio",
+      "f1": {
+       "mean": 0.76,
+       "std": 0.01,
+       "folds": [
+        0.76,
+        0.76,
+        0.76
+       ]
+      },
+      "accuracy": {
+       "mean": 0.7,
+       "std": 0.01,
+       "folds": [
+        0.7,
+        0.7,
+        0.7
+       ]
+      },
+      "roc_auc": {
+       "mean": 0.8,
+       "std": 0.01,
+       "folds": [
+        0.8,
+        0.8,
+        0.8
+       ]
+      },
+      "delta_f1": -0.0
+     },
+     {
+      "removed": "specificity",
+      "f1": {
+       "mean": 0.76,
+       "std": 0.01,
+       "folds": [
+        0.76,
+        0.76,
+        0.76
+       ]
+      },
+      "accuracy": {
+       "mean": 0.7,
+       "std": 0.01,
+       "folds": [
+        0.7,
+        0.7,
+        0.7
+       ]
+      },
+      "roc_auc": {
+       "mean": 0.8,
+       "std": 0.01,
+       "folds": [
+        0.8,
+        0.8,
+        0.8
+       ]
+      },
+      "delta_f1": -0.0
+     },
+     {
+      "removed": "rating_consistency",
+      "f1": {
+       "mean": 0.76,
+       "std": 0.01,
+       "folds": [
+        0.76,
+        0.76,
+        0.76
+       ]
+      },
+      "accuracy": {
+       "mean": 0.7,
+       "std": 0.01,
+       "folds": [
+        0.7,
+        0.7,
+        0.7
+       ]
+      },
+      "roc_auc": {
+       "mean": 0.8,
+       "std": 0.01,
+       "folds": [
+        0.8,
+        0.8,
+        0.8
+       ]
+      },
+      "delta_f1": -0.0
+     }
+    ]
+   }
+  }
+ }
+}

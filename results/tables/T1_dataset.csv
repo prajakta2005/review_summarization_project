@@ -1,0 +1,7 @@
+statistic,value
+Raw reviews,40432
+After preprocessing,40412
+Exact duplicates removed,20
+Categories,10
+Fake reviews,20197
+Genuine reviews,20215

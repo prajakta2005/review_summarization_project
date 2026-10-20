@@ -65,3 +65,18 @@ def load_result(name: str):
         return None
     with open(path) as f:
         return json.load(f)
+
+
+def list_results() -> list:
+    """Metadata of every results/<name>.json, for the reproducibility panel."""
+    if not os.path.isdir(RESULTS_DIR):
+        return []
+    metas = []
+    for fname in sorted(os.listdir(RESULTS_DIR)):
+        if not fname.endswith(".json"):
+            continue
+        with open(os.path.join(RESULTS_DIR, fname)) as f:
+            payload = json.load(f)
+        if isinstance(payload, dict) and "meta" in payload:
+            metas.append(payload["meta"])
+    return metas
