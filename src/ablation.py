@@ -11,10 +11,13 @@ Every score is k-fold stratified cross-validation (mean ± std) using the
 same model pipelines as the model comparison (model_zoo).
 """
 
+import numpy as np
 import pandas as pd
+from scipy.stats import spearmanr
+from sklearn.inspection import permutation_importance
 from sklearn.model_selection import StratifiedKFold, cross_validate
 
-from features import FEATURE_COLUMNS
+from features import FEATURE_COLUMNS, FEATURE_GROUPS
 from model_zoo import build_pipeline
 from splits import SEED
 
@@ -59,3 +62,39 @@ def forward_selection(df, y, model_id, k: int = 5) -> list:
         remaining.remove(best)
         steps.append({"step": len(selected), "added": best, "features": list(selected), **candidates[best]})
     return steps
+
+
+def group_ablation(df, y, model_id, full: dict, k: int = 5) -> list:
+    rows = []
+    for group, members in FEATURE_GROUPS.items():
+        kept = [f for f in FEATURE_COLUMNS if f not in members]
+        score = cv_score(df, y, model_id, kept, k)
+        rows.append({"removed_group": group, "features": members, **score,
+                     "delta_f1": round(score["f1"]["mean"] - full["f1"]["mean"], 4)})
+    return sorted(rows, key=lambda r: r["delta_f1"])
+
+
+def importance_rankings(df, y, train_idx, test_idx, loo: list, shap_importance: dict = None) -> dict:
+    """Compares the ablation ranking with RF impurity importance,
+    permutation importance and (if available) mean |SHAP|."""
+    model = build_pipeline(ABLATION_MODELS["rf"])
+    model.fit(df.iloc[train_idx], y.iloc[train_idx])
+    impurity = pd.Series(model.named_steps["clf"].feature_importances_, index=FEATURE_COLUMNS)
+    perm = permutation_importance(model, df.iloc[test_idx], y.iloc[test_idx], scoring="f1",
+                                  n_repeats=5, random_state=SEED, n_jobs=-1)
+    permutation = pd.Series(perm.importances_mean, index=FEATURE_COLUMNS)
+    ablation = pd.Series({r["removed"]: -r["delta_f1"] for r in loo})  # bigger drop = more important
+
+    scores = {"ablation_loo": ablation, "impurity": impurity, "permutation": permutation}
+    if shap_importance:
+        scores["shap"] = pd.Series(shap_importance).reindex(FEATURE_COLUMNS)
+
+    rankings = {name: s.sort_values(ascending=False).index.tolist() for name, s in scores.items()}
+    values = {name: {f: round(float(v), 5) for f, v in s.items()} for name, s in scores.items()}
+    spearman = {}
+    for name, s in scores.items():
+        if name == "ablation_loo":
+            continue
+        rho, _ = spearmanr(ablation.reindex(FEATURE_COLUMNS), s.reindex(FEATURE_COLUMNS))
+        spearman[name] = None if np.isnan(rho) else round(float(rho), 4)
+    return {**rankings, "values": values, "spearman_vs_ablation": spearman}
