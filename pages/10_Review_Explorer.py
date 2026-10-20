@@ -34,10 +34,14 @@ st.write(summary["overall_summary"])
 st.page_link("pages/06_Summarization.py", label="Compare with a standard (non-credibility) summary →")
 st.subheader("High-Credibility Consensus")
 st.write(summary["high_credibility_consensus"])
-if summary["low_credibility_flags"]:
-    st.subheader("⚠️ Low-Credibility Reviews (surfaced, not deleted)")
-    for flag in summary["low_credibility_flags"]:
+flags = summary["low_credibility_flags"]
+if flags:
+    st.subheader(f"⚠️ Low-Credibility Reviews (surfaced, not deleted): {len(flags):,}")
+    for flag in sorted(flags, key=lambda f: f["credibility_score"])[:5]:
         st.warning(f"Review #{flag['review_id']} ({flag['credibility_score']}%): {flag['excerpt']}")
+    if len(flags) > 5:
+        with st.expander(f"All {len(flags):,} low-credibility reviews"):
+            st.dataframe(pd.DataFrame(flags), use_container_width=True, hide_index=True)
 
 # --- Review Comparison & Aggregation (module 9) ---
 st.header("Review Comparison & Aggregation")
@@ -65,8 +69,10 @@ selected_id = st.selectbox("Select a review", review_ids)
 row = explained[explained["review_id"] == selected_id].iloc[0]
 
 st.markdown(f"**Review text:** {row['review_text']}")
-score_color = {"High": "green", "Medium": "orange", "Low": "red"}[row["credibility_label"]]
-st.markdown(f"**Credibility: :{score_color}[{row['credibility_score']}% — {row['credibility_label']}]**  |  Confidence: {row['confidence']}%")
+card = st.columns(3)
+card[0].metric("Credibility score", f"{row['credibility_score']}%")
+card[1].metric("Credibility label", row["credibility_label"])
+card[2].metric("Model confidence", f"{row['confidence']}%")
 
 method = st.radio("Explanation method", ["SHAP (follows the model)", "z-score (original)"], horizontal=True,
                   help="SHAP uses the model's exact feature contributions; z-score compares the review "
@@ -111,11 +117,11 @@ if use_gemini:
     st.success(llm_text)
 
 # --- Full table ---
-st.header("All Reviews")
-st.dataframe(
-    explained[["review_id", "product_id", "rating", "credibility_score", "credibility_label", "confidence"]],
-    use_container_width=True
-)
+with st.expander(f"All reviews ({len(explained):,})"):
+    st.dataframe(
+        explained[["review_id", "product_id", "rating", "credibility_score", "credibility_label", "confidence"]],
+        use_container_width=True, hide_index=True
+    )
 
 # --- Performance Evaluation (module 12) ---
 st.page_link("pages/04_Performance.py", label="📊 See full performance results (all models, confusion matrix, CV) →")

@@ -102,5 +102,10 @@ with c2:
     st.caption(caption)
     st.page_link("pages/07_Ablation_Study.py", label="See what each feature really contributes (ablation) →")
 
-st.info("Use the pages in the sidebar to explore each module. "
-        "**Review Explorer** has product summaries and per-review explanations.")
+st.subheader("How to use this dashboard")
+n = st.columns(4)
+n[0].page_link("pages/09_Live_Demo.py", label="🧪 Live Demo: score any review")
+n[1].page_link("pages/06_Summarization.py", label="📝 Standard vs credibility-aware summaries")
+n[2].page_link("pages/08_Experimental_Results.py", label="📊 All experimental results")
+n[3].page_link("pages/01_Novelty.py", label="💡 What's new in this system")
+st.caption("Every module also has its own page in the sidebar; the data source chosen here is used by all of them.")
