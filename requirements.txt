@@ -8,3 +8,5 @@ google-genai
 python-dotenv
 scipy
 shap
+lime
+matplotlib
