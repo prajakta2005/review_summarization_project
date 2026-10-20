@@ -1,0 +1,2010 @@
+{
+  "meta": {
+    "name": "summary_comparison",
+    "generated_at": "2026-10-20T20:01:08+00:00",
+    "git_commit": "8e4633a",
+    "dataset": "kaggle_full",
+    "n_rows": 40412,
+    "split": {
+      "test_size": 0.2,
+      "seed": 42
+    },
+    "script": "experiments/run_summary_comparison.py"
+  },
+  "data": {
+    "score_source": "out_of_fold_5cv",
+    "settings": {
+      "top_n": [
+        3,
+        5,
+        8
+      ],
+      "weight_floor": [
+        0.0,
+        0.05,
+        0.2,
+        0.5
+      ],
+      "hard_threshold": [
+        40,
+        50,
+        60
+      ],
+      "default_weight_floor": 0.05,
+      "low_threshold": 40
+    },
+    "n_categories": 10,
+    "per_category": [
+      {
+        "category": "Books_5",
+        "top_n": 3,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 1.0,
+        "mean_source_cred": 22.833333333333332,
+        "rouge1": 0.32,
+        "rouge2": 0.0,
+        "rougeL": 0.28,
+        "redundancy": 0.7096,
+        "coverage": 0.0
+      },
+      {
+        "category": "Books_5",
+        "top_n": 3,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 0.3333333333333333,
+        "mean_source_cred": 72.89999999999999,
+        "rouge1": 0.6429,
+        "rouge2": 0.3846,
+        "rougeL": 0.5714,
+        "redundancy": 0.7422,
+        "coverage": 0.0
+      },
+      {
+        "category": "Books_5",
+        "top_n": 5,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 1.0,
+        "mean_source_cred": 26.640000000000004,
+        "rouge1": 0.3133,
+        "rouge2": 0.0,
+        "rougeL": 0.3133,
+        "redundancy": 0.8117,
+        "coverage": 0.0
+      },
+      {
+        "category": "Books_5",
+        "top_n": 5,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 0.4,
+        "mean_source_cred": 67.4,
+        "rouge1": 0.6923,
+        "rouge2": 0.44,
+        "rougeL": 0.5769,
+        "redundancy": 0.8583,
+        "coverage": 0.0
+      },
+      {
+        "category": "Books_5",
+        "top_n": 8,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 1.0,
+        "mean_source_cred": 26.2125,
+        "rouge1": 0.3881,
+        "rouge2": 0.1061,
+        "rougeL": 0.3582,
+        "redundancy": 0.8186,
+        "coverage": 0.0
+      },
+      {
+        "category": "Books_5",
+        "top_n": 8,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 0.25,
+        "mean_source_cred": 65.65,
+        "rouge1": 0.6897,
+        "rouge2": 0.4941,
+        "rougeL": 0.6207,
+        "redundancy": 0.839,
+        "coverage": 0.0
+      },
+      {
+        "category": "Clothing_Shoes_and_Jewelry_5",
+        "top_n": 3,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 0.6666666666666666,
+        "mean_source_cred": 36.43333333333333,
+        "rouge1": 0.7442,
+        "rouge2": 0.4878,
+        "rougeL": 0.5116,
+        "redundancy": 0.3037,
+        "coverage": 0.6666666666666666
+      },
+      {
+        "category": "Clothing_Shoes_and_Jewelry_5",
+        "top_n": 3,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 0.6666666666666666,
+        "mean_source_cred": 74.89999999999999,
+        "rouge1": 0.4783,
+        "rouge2": 0.1818,
+        "rougeL": 0.3478,
+        "redundancy": 0.3335,
+        "coverage": 0.3333333333333333
+      },
+      {
+        "category": "Clothing_Shoes_and_Jewelry_5",
+        "top_n": 5,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 0.8,
+        "mean_source_cred": 44.2,
+        "rouge1": 0.6753,
+        "rouge2": 0.4,
+        "rougeL": 0.3636,
+        "redundancy": 0.4372,
+        "coverage": 0.6666666666666666
+      },
+      {
+        "category": "Clothing_Shoes_and_Jewelry_5",
+        "top_n": 5,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 0.8,
+        "mean_source_cred": 69.38,
+        "rouge1": 0.7126,
+        "rouge2": 0.2824,
+        "rougeL": 0.3678,
+        "redundancy": 0.3705,
+        "coverage": 1.0
+      },
+      {
+        "category": "Clothing_Shoes_and_Jewelry_5",
+        "top_n": 8,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 0.75,
+        "mean_source_cred": 40.8625,
+        "rouge1": 0.6992,
+        "rouge2": 0.3802,
+        "rougeL": 0.439,
+        "redundancy": 0.4267,
+        "coverage": 1.0
+      },
+      {
+        "category": "Clothing_Shoes_and_Jewelry_5",
+        "top_n": 8,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 0.625,
+        "mean_source_cred": 72.0625,
+        "rouge1": 0.7286,
+        "rouge2": 0.3623,
+        "rougeL": 0.3857,
+        "redundancy": 0.2598,
+        "coverage": 1.0
+      },
+      {
+        "category": "Electronics_5",
+        "top_n": 3,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 1.0,
+        "mean_source_cred": 21.599999999999998,
+        "rouge1": 0.3,
+        "rouge2": 0.0345,
+        "rougeL": 0.2,
+        "redundancy": 0.3127,
+        "coverage": 0.6666666666666666
+      },
+      {
+        "category": "Electronics_5",
+        "top_n": 3,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 0.6666666666666666,
+        "mean_source_cred": 71.1,
+        "rouge1": 0.6,
+        "rouge2": 0.3571,
+        "rougeL": 0.5333,
+        "redundancy": 0.7422,
+        "coverage": 0.3333333333333333
+      },
+      {
+        "category": "Electronics_5",
+        "top_n": 5,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 1.0,
+        "mean_source_cred": 26.660000000000004,
+        "rouge1": 0.3918,
+        "rouge2": 0.1053,
+        "rougeL": 0.2268,
+        "redundancy": 0.2833,
+        "coverage": 0.6666666666666666
+      },
+      {
+        "category": "Electronics_5",
+        "top_n": 5,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 0.6,
+        "mean_source_cred": 70.46000000000001,
+        "rouge1": 0.5517,
+        "rouge2": 0.3214,
+        "rougeL": 0.4138,
+        "redundancy": 0.4088,
+        "coverage": 0.6666666666666666
+      },
+      {
+        "category": "Electronics_5",
+        "top_n": 8,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 1.0,
+        "mean_source_cred": 34.5,
+        "rouge1": 0.4889,
+        "rouge2": 0.1805,
+        "rougeL": 0.2815,
+        "redundancy": 0.369,
+        "coverage": 1.0
+      },
+      {
+        "category": "Electronics_5",
+        "top_n": 8,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 0.375,
+        "mean_source_cred": 68.7375,
+        "rouge1": 0.64,
+        "rouge2": 0.3562,
+        "rougeL": 0.4267,
+        "redundancy": 0.4065,
+        "coverage": 0.6666666666666666
+      },
+      {
+        "category": "Home_and_Kitchen_5",
+        "top_n": 3,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 1.0,
+        "mean_source_cred": 35.93333333333333,
+        "rouge1": 0.4058,
+        "rouge2": 0.0597,
+        "rougeL": 0.2319,
+        "redundancy": 0.2141,
+        "coverage": 0.6666666666666666
+      },
+      {
+        "category": "Home_and_Kitchen_5",
+        "top_n": 3,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 0.0,
+        "mean_source_cred": 78.66666666666667,
+        "rouge1": 0.5581,
+        "rouge2": 0.3415,
+        "rougeL": 0.5116,
+        "redundancy": 0.3633,
+        "coverage": 0.3333333333333333
+      },
+      {
+        "category": "Home_and_Kitchen_5",
+        "top_n": 5,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 0.8,
+        "mean_source_cred": 40.379999999999995,
+        "rouge1": 0.4528,
+        "rouge2": 0.1923,
+        "rougeL": 0.3019,
+        "redundancy": 0.3049,
+        "coverage": 0.6666666666666666
+      },
+      {
+        "category": "Home_and_Kitchen_5",
+        "top_n": 5,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 0.0,
+        "mean_source_cred": 76.7,
+        "rouge1": 0.5614,
+        "rouge2": 0.3636,
+        "rougeL": 0.5263,
+        "redundancy": 0.2714,
+        "coverage": 0.6666666666666666
+      },
+      {
+        "category": "Home_and_Kitchen_5",
+        "top_n": 8,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 0.75,
+        "mean_source_cred": 42.7375,
+        "rouge1": 0.6057,
+        "rouge2": 0.3237,
+        "rougeL": 0.3657,
+        "redundancy": 0.2845,
+        "coverage": 0.6666666666666666
+      },
+      {
+        "category": "Home_and_Kitchen_5",
+        "top_n": 8,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 0.0,
+        "mean_source_cred": 72.0,
+        "rouge1": 0.6218,
+        "rouge2": 0.4957,
+        "rougeL": 0.5714,
+        "redundancy": 0.3328,
+        "coverage": 0.6666666666666666
+      },
+      {
+        "category": "Kindle_Store_5",
+        "top_n": 3,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 1.0,
+        "mean_source_cred": 28.3,
+        "rouge1": 0.4324,
+        "rouge2": 0.0917,
+        "rougeL": 0.2523,
+        "redundancy": 0.4804,
+        "coverage": 0.0
+      },
+      {
+        "category": "Kindle_Store_5",
+        "top_n": 3,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 0.0,
+        "mean_source_cred": 79.53333333333332,
+        "rouge1": 0.3902,
+        "rouge2": 0.125,
+        "rougeL": 0.2195,
+        "redundancy": 0.5485,
+        "coverage": 0.0
+      },
+      {
+        "category": "Kindle_Store_5",
+        "top_n": 5,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 0.8,
+        "mean_source_cred": 31.640000000000004,
+        "rouge1": 0.44,
+        "rouge2": 0.1081,
+        "rougeL": 0.3067,
+        "redundancy": 0.4173,
+        "coverage": 0.0
+      },
+      {
+        "category": "Kindle_Store_5",
+        "top_n": 5,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 0.0,
+        "mean_source_cred": 77.1,
+        "rouge1": 0.4706,
+        "rouge2": 0.24,
+        "rougeL": 0.2549,
+        "redundancy": 0.5989,
+        "coverage": 0.0
+      },
+      {
+        "category": "Kindle_Store_5",
+        "top_n": 8,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 0.875,
+        "mean_source_cred": 25.175000000000004,
+        "rouge1": 0.4087,
+        "rouge2": 0.1053,
+        "rougeL": 0.3043,
+        "redundancy": 0.4943,
+        "coverage": 0.0
+      },
+      {
+        "category": "Kindle_Store_5",
+        "top_n": 8,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 0.125,
+        "mean_source_cred": 71.4,
+        "rouge1": 0.5181,
+        "rouge2": 0.2195,
+        "rougeL": 0.3012,
+        "redundancy": 0.4537,
+        "coverage": 0.0
+      },
+      {
+        "category": "Movies_and_TV_5",
+        "top_n": 3,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 1.0,
+        "mean_source_cred": 30.766666666666666,
+        "rouge1": 0.4444,
+        "rouge2": 0.1154,
+        "rougeL": 0.3704,
+        "redundancy": 1.0,
+        "coverage": 0.0
+      },
+      {
+        "category": "Movies_and_TV_5",
+        "top_n": 3,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 0.6666666666666666,
+        "mean_source_cred": 68.16666666666667,
+        "rouge1": 0.5789,
+        "rouge2": 0.3333,
+        "rougeL": 0.5789,
+        "redundancy": 0.8814,
+        "coverage": 0.0
+      },
+      {
+        "category": "Movies_and_TV_5",
+        "top_n": 5,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 1.0,
+        "mean_source_cred": 23.4,
+        "rouge1": 0.4086,
+        "rouge2": 0.0879,
+        "rougeL": 0.3226,
+        "redundancy": 1.0,
+        "coverage": 0.0
+      },
+      {
+        "category": "Movies_and_TV_5",
+        "top_n": 5,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 0.6,
+        "mean_source_cred": 65.52000000000001,
+        "rouge1": 0.5588,
+        "rouge2": 0.303,
+        "rougeL": 0.4118,
+        "redundancy": 0.7491,
+        "coverage": 0.0
+      },
+      {
+        "category": "Movies_and_TV_5",
+        "top_n": 8,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 1.0,
+        "mean_source_cred": 20.475,
+        "rouge1": 0.4342,
+        "rouge2": 0.16,
+        "rougeL": 0.3158,
+        "redundancy": 0.8646,
+        "coverage": 0.0
+      },
+      {
+        "category": "Movies_and_TV_5",
+        "top_n": 8,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 0.625,
+        "mean_source_cred": 63.2625,
+        "rouge1": 0.6222,
+        "rouge2": 0.3409,
+        "rougeL": 0.4444,
+        "redundancy": 0.7763,
+        "coverage": 0.0
+      },
+      {
+        "category": "Pet_Supplies_5",
+        "top_n": 3,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 1.0,
+        "mean_source_cred": 39.6,
+        "rouge1": 0.4,
+        "rouge2": 0.1096,
+        "rougeL": 0.32,
+        "redundancy": 0.5531,
+        "coverage": 0.0
+      },
+      {
+        "category": "Pet_Supplies_5",
+        "top_n": 3,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 0.0,
+        "mean_source_cred": 68.56666666666666,
+        "rouge1": 0.5833,
+        "rouge2": 0.4348,
+        "rougeL": 0.5,
+        "redundancy": 0.2937,
+        "coverage": 0.0
+      },
+      {
+        "category": "Pet_Supplies_5",
+        "top_n": 5,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 1.0,
+        "mean_source_cred": 44.199999999999996,
+        "rouge1": 0.4688,
+        "rouge2": 0.1905,
+        "rougeL": 0.3281,
+        "redundancy": 0.3363,
+        "coverage": 0.0
+      },
+      {
+        "category": "Pet_Supplies_5",
+        "top_n": 5,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 0.2,
+        "mean_source_cred": 64.72,
+        "rouge1": 0.5676,
+        "rouge2": 0.3889,
+        "rougeL": 0.4595,
+        "redundancy": 0.4662,
+        "coverage": 0.0
+      },
+      {
+        "category": "Pet_Supplies_5",
+        "top_n": 8,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 0.875,
+        "mean_source_cred": 41.9625,
+        "rouge1": 0.4607,
+        "rouge2": 0.254,
+        "rougeL": 0.2932,
+        "redundancy": 0.3231,
+        "coverage": 0.0
+      },
+      {
+        "category": "Pet_Supplies_5",
+        "top_n": 8,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 0.25,
+        "mean_source_cred": 61.53750000000001,
+        "rouge1": 0.7563,
+        "rouge2": 0.5812,
+        "rougeL": 0.6723,
+        "redundancy": 0.3539,
+        "coverage": 0.0
+      },
+      {
+        "category": "Sports_and_Outdoors_5",
+        "top_n": 3,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 1.0,
+        "mean_source_cred": 55.76666666666667,
+        "rouge1": 0.3529,
+        "rouge2": 0.1224,
+        "rougeL": 0.2353,
+        "redundancy": 0.5098,
+        "coverage": 0.6666666666666666
+      },
+      {
+        "category": "Sports_and_Outdoors_5",
+        "top_n": 3,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 1.0,
+        "mean_source_cred": 70.96666666666667,
+        "rouge1": 0.3721,
+        "rouge2": 0.1951,
+        "rougeL": 0.3256,
+        "redundancy": 0.3113,
+        "coverage": 0.6666666666666666
+      },
+      {
+        "category": "Sports_and_Outdoors_5",
+        "top_n": 5,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 1.0,
+        "mean_source_cred": 55.3,
+        "rouge1": 0.4634,
+        "rouge2": 0.1,
+        "rougeL": 0.2683,
+        "redundancy": 0.5003,
+        "coverage": 1.0
+      },
+      {
+        "category": "Sports_and_Outdoors_5",
+        "top_n": 5,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 0.8,
+        "mean_source_cred": 69.16,
+        "rouge1": 0.5278,
+        "rouge2": 0.1429,
+        "rougeL": 0.3056,
+        "redundancy": 0.4055,
+        "coverage": 0.6666666666666666
+      },
+      {
+        "category": "Sports_and_Outdoors_5",
+        "top_n": 8,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 1.0,
+        "mean_source_cred": 49.150000000000006,
+        "rouge1": 0.5085,
+        "rouge2": 0.1552,
+        "rougeL": 0.2712,
+        "redundancy": 0.4444,
+        "coverage": 1.0
+      },
+      {
+        "category": "Sports_and_Outdoors_5",
+        "top_n": 8,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 0.625,
+        "mean_source_cred": 67.80000000000001,
+        "rouge1": 0.5625,
+        "rouge2": 0.1489,
+        "rougeL": 0.3333,
+        "redundancy": 0.3773,
+        "coverage": 1.0
+      },
+      {
+        "category": "Tools_and_Home_Improvement_5",
+        "top_n": 3,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 1.0,
+        "mean_source_cred": 54.03333333333333,
+        "rouge1": 0.3729,
+        "rouge2": 0.1404,
+        "rougeL": 0.3051,
+        "redundancy": 0.5056,
+        "coverage": 0.3333333333333333
+      },
+      {
+        "category": "Tools_and_Home_Improvement_5",
+        "top_n": 3,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 0.3333333333333333,
+        "mean_source_cred": 71.0,
+        "rouge1": 0.3913,
+        "rouge2": 0.1818,
+        "rougeL": 0.3043,
+        "redundancy": 0.2844,
+        "coverage": 0.3333333333333333
+      },
+      {
+        "category": "Tools_and_Home_Improvement_5",
+        "top_n": 5,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 0.8,
+        "mean_source_cred": 54.5,
+        "rouge1": 0.4691,
+        "rouge2": 0.2532,
+        "rougeL": 0.3704,
+        "redundancy": 0.3774,
+        "coverage": 0.3333333333333333
+      },
+      {
+        "category": "Tools_and_Home_Improvement_5",
+        "top_n": 5,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 0.2,
+        "mean_source_cred": 71.13999999999999,
+        "rouge1": 0.5625,
+        "rouge2": 0.3226,
+        "rougeL": 0.4063,
+        "redundancy": 0.2887,
+        "coverage": 0.6666666666666666
+      },
+      {
+        "category": "Tools_and_Home_Improvement_5",
+        "top_n": 8,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 0.875,
+        "mean_source_cred": 52.574999999999996,
+        "rouge1": 0.4964,
+        "rouge2": 0.2074,
+        "rougeL": 0.3504,
+        "redundancy": 0.3817,
+        "coverage": 0.3333333333333333
+      },
+      {
+        "category": "Tools_and_Home_Improvement_5",
+        "top_n": 8,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 0.125,
+        "mean_source_cred": 72.5875,
+        "rouge1": 0.6452,
+        "rouge2": 0.3736,
+        "rougeL": 0.4516,
+        "redundancy": 0.2949,
+        "coverage": 0.6666666666666666
+      },
+      {
+        "category": "Toys_and_Games_5",
+        "top_n": 3,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 1.0,
+        "mean_source_cred": 43.43333333333334,
+        "rouge1": 0.4179,
+        "rouge2": 0.1846,
+        "rougeL": 0.3582,
+        "redundancy": 0.4272,
+        "coverage": 0.3333333333333333
+      },
+      {
+        "category": "Toys_and_Games_5",
+        "top_n": 3,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 0.6666666666666666,
+        "mean_source_cred": 73.5,
+        "rouge1": 0.4857,
+        "rouge2": 0.2941,
+        "rougeL": 0.3143,
+        "redundancy": 0.0897,
+        "coverage": 0.0
+      },
+      {
+        "category": "Toys_and_Games_5",
+        "top_n": 5,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 1.0,
+        "mean_source_cred": 47.0,
+        "rouge1": 0.451,
+        "rouge2": 0.16,
+        "rougeL": 0.3333,
+        "redundancy": 0.5694,
+        "coverage": 0.3333333333333333
+      },
+      {
+        "category": "Toys_and_Games_5",
+        "top_n": 5,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 0.6,
+        "mean_source_cred": 73.61999999999999,
+        "rouge1": 0.4909,
+        "rouge2": 0.2593,
+        "rougeL": 0.3273,
+        "redundancy": 0.2278,
+        "coverage": 0.0
+      },
+      {
+        "category": "Toys_and_Games_5",
+        "top_n": 8,
+        "variant": "standard",
+        "weight_floor": 0.05,
+        "contamination": 1.0,
+        "mean_source_cred": 43.675,
+        "rouge1": 0.4262,
+        "rouge2": 0.1768,
+        "rougeL": 0.3279,
+        "redundancy": 0.5087,
+        "coverage": 0.3333333333333333
+      },
+      {
+        "category": "Toys_and_Games_5",
+        "top_n": 8,
+        "variant": "credibility_aware",
+        "weight_floor": 0.05,
+        "contamination": 0.625,
+        "mean_source_cred": 70.26249999999999,
+        "rouge1": 0.4916,
+        "rouge2": 0.2034,
+        "rougeL": 0.3017,
+        "redundancy": 0.2239,
+        "coverage": 0.6666666666666666
+      }
+    ],
+    "averages": {
+      "3": {
+        "credibility_aware": {
+          "contamination": 0.4333,
+          "mean_source_cred": 72.93,
+          "rouge1": 0.5081,
+          "rouge2": 0.2829,
+          "rougeL": 0.4207,
+          "redundancy": 0.459,
+          "coverage": 0.2
+        },
+        "standard": {
+          "contamination": 0.9667,
+          "mean_source_cred": 36.87,
+          "rouge1": 0.419,
+          "rouge2": 0.1346,
+          "rougeL": 0.3065,
+          "redundancy": 0.5016,
+          "coverage": 0.3333
+        }
+      },
+      "5": {
+        "credibility_aware": {
+          "contamination": 0.42,
+          "mean_source_cred": 70.52,
+          "rouge1": 0.5696,
+          "rouge2": 0.3064,
+          "rougeL": 0.405,
+          "redundancy": 0.4645,
+          "coverage": 0.3667
+        },
+        "standard": {
+          "contamination": 0.92,
+          "mean_source_cred": 39.392,
+          "rouge1": 0.4534,
+          "rouge2": 0.1597,
+          "rougeL": 0.3135,
+          "redundancy": 0.5038,
+          "coverage": 0.3667
+        }
+      },
+      "8": {
+        "credibility_aware": {
+          "contamination": 0.3625,
+          "mean_source_cred": 68.53,
+          "rouge1": 0.6276,
+          "rouge2": 0.3576,
+          "rougeL": 0.4509,
+          "redundancy": 0.4318,
+          "coverage": 0.4667
+        },
+        "standard": {
+          "contamination": 0.9125,
+          "mean_source_cred": 37.7325,
+          "rouge1": 0.4917,
+          "rouge2": 0.2049,
+          "rougeL": 0.3307,
+          "redundancy": 0.4916,
+          "coverage": 0.4333
+        }
+      }
+    },
+    "sensitivity": {
+      "weight_floor": [
+        {
+          "weight_floor": 0.0,
+          "contamination": 0.42,
+          "mean_source_cred": 70.52,
+          "rouge1": 0.5696,
+          "rouge2": 0.3064,
+          "rougeL": 0.405,
+          "redundancy": 0.4645,
+          "coverage": 0.3667
+        },
+        {
+          "weight_floor": 0.05,
+          "contamination": 0.42,
+          "mean_source_cred": 70.52,
+          "rouge1": 0.5696,
+          "rouge2": 0.3064,
+          "rougeL": 0.405,
+          "redundancy": 0.4645,
+          "coverage": 0.3667
+        },
+        {
+          "weight_floor": 0.2,
+          "contamination": 0.42,
+          "mean_source_cred": 70.52,
+          "rouge1": 0.5696,
+          "rouge2": 0.3064,
+          "rougeL": 0.405,
+          "redundancy": 0.4645,
+          "coverage": 0.3667
+        },
+        {
+          "weight_floor": 0.5,
+          "contamination": 0.42,
+          "mean_source_cred": 70.52,
+          "rouge1": 0.5696,
+          "rouge2": 0.3064,
+          "rougeL": 0.405,
+          "redundancy": 0.4645,
+          "coverage": 0.3667
+        }
+      ],
+      "hard_threshold": [
+        {
+          "hard_threshold": 40,
+          "contamination": 0.4,
+          "mean_source_cred": 70.202,
+          "rouge1": 0.5683,
+          "rouge2": 0.3143,
+          "rougeL": 0.4092,
+          "redundancy": 0.495,
+          "coverage": 0.4
+        },
+        {
+          "hard_threshold": 50,
+          "contamination": 0.36,
+          "mean_source_cred": 70.53,
+          "rouge1": 0.5879,
+          "rouge2": 0.3334,
+          "rougeL": 0.4256,
+          "redundancy": 0.4895,
+          "coverage": 0.3667
+        },
+        {
+          "hard_threshold": 60,
+          "contamination": 0.2,
+          "mean_source_cred": 74.26,
+          "rouge1": 0.4645,
+          "rouge2": 0.2389,
+          "rougeL": 0.3146,
+          "redundancy": 0.3545,
+          "coverage": 0.3333
+        }
+      ]
+    },
+    "examples": [
+      {
+        "category": "Books_5",
+        "top_n": 5,
+        "attributes": [
+          "price",
+          "quality",
+          "comfort"
+        ],
+        "standard": [
+          {
+            "sentence": "I had to read the book to get through the story.",
+            "review_id": 30630,
+            "score": 49.0,
+            "is_fake": true
+          },
+          {
+            "sentence": "I had to read the book to get the full story.",
+            "review_id": 31146,
+            "score": 42.0,
+            "is_fake": true
+          },
+          {
+            "sentence": "This is a great book to read and it is a good book to read.",
+            "review_id": 31285,
+            "score": 13.4,
+            "is_fake": true
+          },
+          {
+            "sentence": "I had to read the book to get through the story.",
+            "review_id": 31883,
+            "score": 15.7,
+            "is_fake": true
+          },
+          {
+            "sentence": "I had to read the book to get through the story.",
+            "review_id": 32648,
+            "score": 13.1,
+            "is_fake": true
+          }
+        ],
+        "credibility_aware": [
+          {
+            "sentence": "This is the first one.I read this book",
+            "review_id": 29529,
+            "score": 63.0,
+            "is_fake": true
+          },
+          {
+            "sentence": "I have read every book by B.B.",
+            "review_id": 30754,
+            "score": 59.1,
+            "is_fake": true
+          },
+          {
+            "sentence": "Everyone should read this book!",
+            "review_id": 31436,
+            "score": 59.2,
+            "is_fake": false
+          },
+          {
+            "sentence": "READ THIS BOOK!!!",
+            "review_id": 32021,
+            "score": 80.7,
+            "is_fake": false
+          },
+          {
+            "sentence": "Get the book.",
+            "review_id": 32022,
+            "score": 75.0,
+            "is_fake": false
+          }
+        ],
+        "oracle": [
+          {
+            "sentence": "I have not yet read this book.",
+            "review_id": 30958,
+            "score": 51.5,
+            "is_fake": false
+          },
+          {
+            "sentence": "Please read this book!",
+            "review_id": 31387,
+            "score": 58.8,
+            "is_fake": false
+          },
+          {
+            "sentence": "Everyone should read this book!",
+            "review_id": 31436,
+            "score": 59.2,
+            "is_fake": false
+          },
+          {
+            "sentence": "I read this book again!",
+            "review_id": 31818,
+            "score": 52.8,
+            "is_fake": false
+          },
+          {
+            "sentence": "READ THIS BOOK!!!",
+            "review_id": 32021,
+            "score": 80.7,
+            "is_fake": false
+          }
+        ]
+      },
+      {
+        "category": "Clothing_Shoes_and_Jewelry_5",
+        "top_n": 5,
+        "attributes": [
+          "comfort",
+          "durability",
+          "quality"
+        ],
+        "standard": [
+          {
+            "sentence": "Love the comfortable fit.",
+            "review_id": 37048,
+            "score": 45.0,
+            "is_fake": true
+          },
+          {
+            "sentence": "These fit great and are very comfortable to wear.",
+            "review_id": 38140,
+            "score": 50.2,
+            "is_fake": false
+          },
+          {
+            "sentence": "Great fit and comfortable.",
+            "review_id": 38245,
+            "score": 58.8,
+            "is_fake": true
+          },
+          {
+            "sentence": "I love how they fit and are comfortable.",
+            "review_id": 39585,
+            "score": 52.9,
+            "is_fake": true
+          },
+          {
+            "sentence": "Great, very comfortable, and I ordered size up.",
+            "review_id": 40353,
+            "score": 14.1,
+            "is_fake": true
+          }
+        ],
+        "credibility_aware": [
+          {
+            "sentence": "Great fit and comfortable.",
+            "review_id": 38245,
+            "score": 58.8,
+            "is_fake": true
+          },
+          {
+            "sentence": "I wear a 10.5 in shoes and these fit perfectly!Great quality and fit.",
+            "review_id": 39653,
+            "score": 63.4,
+            "is_fake": true
+          },
+          {
+            "sentence": "I have them in a size 8, and they fit great.",
+            "review_id": 40095,
+            "score": 73.2,
+            "is_fake": true
+          },
+          {
+            "sentence": "The size is perfect, and it's very comfortable.",
+            "review_id": 40153,
+            "score": 68.7,
+            "is_fake": true
+          },
+          {
+            "sentence": "The fit is comfortable.",
+            "review_id": 40424,
+            "score": 82.8,
+            "is_fake": false
+          }
+        ],
+        "oracle": [
+          {
+            "sentence": "Comfortable fit and great quality.",
+            "review_id": 37257,
+            "score": 44.9,
+            "is_fake": false
+          },
+          {
+            "sentence": "Ordered a size up and it fit great.",
+            "review_id": 37487,
+            "score": 46.4,
+            "is_fake": false
+          },
+          {
+            "sentence": "They fit great, are comfortable, and last.",
+            "review_id": 37512,
+            "score": 46.6,
+            "is_fake": false
+          },
+          {
+            "sentence": "These fit great and are very comfortable to wear.",
+            "review_id": 38140,
+            "score": 50.2,
+            "is_fake": false
+          },
+          {
+            "sentence": "I wear a size 8 so that's what I ordered and they fit perfect.",
+            "review_id": 39021,
+            "score": 50.4,
+            "is_fake": false
+          }
+        ]
+      },
+      {
+        "category": "Electronics_5",
+        "top_n": 5,
+        "attributes": [
+          "price",
+          "quality",
+          "comfort"
+        ],
+        "standard": [
+          {
+            "sentence": "Great product!Works great.",
+            "review_id": 10670,
+            "score": 55.8,
+            "is_fake": true
+          },
+          {
+            "sentence": "I love this thing it works great and the price is good.",
+            "review_id": 11268,
+            "score": 35.5,
+            "is_fake": true
+          },
+          {
+            "sentence": "I wish the sound quality was better, but I'm happy with the sound.Works great.I really like the case.",
+            "review_id": 11730,
+            "score": 11.9,
+            "is_fake": true
+          },
+          {
+            "sentence": "The sound quality is not great but it is good enough to use as a laptop.",
+            "review_id": 11921,
+            "score": 12.7,
+            "is_fake": true
+          },
+          {
+            "sentence": "Great price, works great, great sound, and the sound quality is excellent.",
+            "review_id": 11973,
+            "score": 17.4,
+            "is_fake": true
+          }
+        ],
+        "credibility_aware": [
+          {
+            "sentence": "Great Product!Very good quality.",
+            "review_id": 8256,
+            "score": 68.1,
+            "is_fake": true
+          },
+          {
+            "sentence": "Great Product!Very good quality.",
+            "review_id": 8673,
+            "score": 69.6,
+            "is_fake": true
+          },
+          {
+            "sentence": "Great product!Works great.",
+            "review_id": 10303,
+            "score": 62.2,
+            "is_fake": true
+          },
+          {
+            "sentence": "Very good but not great",
+            "review_id": 11502,
+            "score": 75.6,
+            "is_fake": false
+          },
+          {
+            "sentence": "The sound is great for the price.",
+            "review_id": 11802,
+            "score": 76.8,
+            "is_fake": false
+          }
+        ],
+        "oracle": [
+          {
+            "sentence": "Great product for great price.",
+            "review_id": 8282,
+            "score": 47.3,
+            "is_fake": false
+          },
+          {
+            "sentence": "Great product and works as it should.",
+            "review_id": 8861,
+            "score": 52.0,
+            "is_fake": false
+          },
+          {
+            "sentence": "Product works Great!!!",
+            "review_id": 10092,
+            "score": 60.0,
+            "is_fake": false
+          },
+          {
+            "sentence": "Nice price, got here in 2 days, great product and great buy.",
+            "review_id": 11153,
+            "score": 56.1,
+            "is_fake": false
+          },
+          {
+            "sentence": "Very good but not great",
+            "review_id": 11502,
+            "score": 75.6,
+            "is_fake": false
+          }
+        ]
+      },
+      {
+        "category": "Home_and_Kitchen_5",
+        "top_n": 5,
+        "attributes": [
+          "quality",
+          "price",
+          "comfort"
+        ],
+        "standard": [
+          {
+            "sentence": "This is a great product and a great price.Very good quality.Nice, sturdy, and functional",
+            "review_id": 884,
+            "score": 45.0,
+            "is_fake": true
+          },
+          {
+            "sentence": "Easy to use and easy to clean!Love this very nice quality.",
+            "review_id": 3305,
+            "score": 49.8,
+            "is_fake": true
+          },
+          {
+            "sentence": "This was a great product and I would recommend it to anyone!I love it!",
+            "review_id": 3747,
+            "score": 13.0,
+            "is_fake": true
+          },
+          {
+            "sentence": "Great for the price, easy to clean, and easy to use.I have had this product for about a year now.",
+            "review_id": 3811,
+            "score": 15.0,
+            "is_fake": true
+          },
+          {
+            "sentence": "We love them, and the price is great.",
+            "review_id": 3834,
+            "score": 79.1,
+            "is_fake": false
+          }
+        ],
+        "credibility_aware": [
+          {
+            "sentence": "Good quality, great price.",
+            "review_id": 301,
+            "score": 64.7,
+            "is_fake": false
+          },
+          {
+            "sentence": "Other than that, it's a great product!",
+            "review_id": 3774,
+            "score": 74.1,
+            "is_fake": false
+          },
+          {
+            "sentence": "We love them, and the price is great.",
+            "review_id": 3834,
+            "score": 79.1,
+            "is_fake": false
+          },
+          {
+            "sentence": "Love this.",
+            "review_id": 4034,
+            "score": 82.8,
+            "is_fake": false
+          },
+          {
+            "sentence": "Great!",
+            "review_id": 4034,
+            "score": 82.8,
+            "is_fake": false
+          }
+        ],
+        "oracle": [
+          {
+            "sentence": "Good quality, great price.",
+            "review_id": 301,
+            "score": 64.7,
+            "is_fake": false
+          },
+          {
+            "sentence": "It works just great!",
+            "review_id": 1184,
+            "score": 58.8,
+            "is_fake": false
+          },
+          {
+            "sentence": "It looks great, works great, and is of very good quality.",
+            "review_id": 2417,
+            "score": 57.5,
+            "is_fake": false
+          },
+          {
+            "sentence": "Always a good price for great quality.",
+            "review_id": 3492,
+            "score": 60.9,
+            "is_fake": false
+          },
+          {
+            "sentence": "We love them, and the price is great.",
+            "review_id": 3834,
+            "score": 79.1,
+            "is_fake": false
+          }
+        ]
+      },
+      {
+        "category": "Kindle_Store_5",
+        "top_n": 5,
+        "attributes": [
+          "price",
+          "quality",
+          "comfort"
+        ],
+        "standard": [
+          {
+            "sentence": "Loved this book, the characters,the story,all of it was great!",
+            "review_id": 24679,
+            "score": 57.5,
+            "is_fake": false
+          },
+          {
+            "sentence": "I had to read the book to get through the story.",
+            "review_id": 27646,
+            "score": 20.6,
+            "is_fake": true
+          },
+          {
+            "sentence": "I can't wait to read the next book.This book was well written and I enjoyed the characters and the story.",
+            "review_id": 27673,
+            "score": 52.7,
+            "is_fake": true
+          },
+          {
+            "sentence": "I can't wait to read the next book in this series.This was a great book for those of us who love a good read and enjoy a good story.",
+            "review_id": 27713,
+            "score": 11.6,
+            "is_fake": true
+          },
+          {
+            "sentence": "The story is very well done.I read the first book in the series and I loved it.",
+            "review_id": 28379,
+            "score": 15.8,
+            "is_fake": true
+          }
+        ],
+        "credibility_aware": [
+          {
+            "sentence": "You must read this book!",
+            "review_id": 27507,
+            "score": 64.2,
+            "is_fake": false
+          },
+          {
+            "sentence": "Then I read the book.",
+            "review_id": 27679,
+            "score": 75.1,
+            "is_fake": false
+          },
+          {
+            "sentence": "Well, read the book!",
+            "review_id": 28209,
+            "score": 74.8,
+            "is_fake": false
+          },
+          {
+            "sentence": "This is book two of four.",
+            "review_id": 28282,
+            "score": 82.7,
+            "is_fake": false
+          },
+          {
+            "sentence": "On the whole though, I enjoyed this book and would read more by this author as the story and characters were real and down to earth.",
+            "review_id": 28305,
+            "score": 88.7,
+            "is_fake": false
+          }
+        ],
+        "oracle": [
+          {
+            "sentence": "This book is a must read.",
+            "review_id": 24983,
+            "score": 50.4,
+            "is_fake": false
+          },
+          {
+            "sentence": "I have to read every book back to back.",
+            "review_id": 25153,
+            "score": 50.1,
+            "is_fake": false
+          },
+          {
+            "sentence": "Great Book love the way the author made me feel like I was there .You are going to have to go read the book and see what you think about the book.",
+            "review_id": 25822,
+            "score": 42.3,
+            "is_fake": false
+          },
+          {
+            "sentence": "Then I read the book.",
+            "review_id": 27679,
+            "score": 75.1,
+            "is_fake": false
+          },
+          {
+            "sentence": "Well, read the book!",
+            "review_id": 28209,
+            "score": 74.8,
+            "is_fake": false
+          }
+        ]
+      },
+      {
+        "category": "Movies_and_TV_5",
+        "top_n": 5,
+        "attributes": [
+          "price",
+          "quality",
+          "customer_service"
+        ],
+        "standard": [
+          {
+            "sentence": "The movie itself is good but the acting is not great.",
+            "review_id": 13754,
+            "score": 57.7,
+            "is_fake": true
+          },
+          {
+            "sentence": "The movie itself was good but the acting was not great.",
+            "review_id": 14843,
+            "score": 11.3,
+            "is_fake": true
+          },
+          {
+            "sentence": "The movie itself was good but the acting was not great.",
+            "review_id": 14884,
+            "score": 21.8,
+            "is_fake": true
+          },
+          {
+            "sentence": "The movie itself is good but the acting is not great.",
+            "review_id": 15187,
+            "score": 13.4,
+            "is_fake": true
+          },
+          {
+            "sentence": "This was a great movie and the acting was good.",
+            "review_id": 15333,
+            "score": 12.8,
+            "is_fake": true
+          }
+        ],
+        "credibility_aware": [
+          {
+            "sentence": "Great movie!Very good movie.",
+            "review_id": 12025,
+            "score": 63.6,
+            "is_fake": true
+          },
+          {
+            "sentence": "Great movie!Very good movie.",
+            "review_id": 12278,
+            "score": 65.3,
+            "is_fake": true
+          },
+          {
+            "sentence": "Good movie!",
+            "review_id": 13629,
+            "score": 65.4,
+            "is_fake": false
+          },
+          {
+            "sentence": "The movie itself is good but the acting is not great.",
+            "review_id": 13754,
+            "score": 57.7,
+            "is_fake": true
+          },
+          {
+            "sentence": "Everyone in the movie is good.",
+            "review_id": 15462,
+            "score": 75.6,
+            "is_fake": false
+          }
+        ],
+        "oracle": [
+          {
+            "sentence": "This movie is a good movie.",
+            "review_id": 12917,
+            "score": 49.9,
+            "is_fake": false
+          },
+          {
+            "sentence": "If she is in the movie, it will be good.",
+            "review_id": 12977,
+            "score": 50.2,
+            "is_fake": false
+          },
+          {
+            "sentence": "But it was such a good movie that I had to own it for myself.",
+            "review_id": 13596,
+            "score": 49.7,
+            "is_fake": false
+          },
+          {
+            "sentence": "Good movie!",
+            "review_id": 13629,
+            "score": 65.4,
+            "is_fake": false
+          },
+          {
+            "sentence": "Everyone in the movie is good.",
+            "review_id": 15462,
+            "score": 75.6,
+            "is_fake": false
+          }
+        ]
+      },
+      {
+        "category": "Pet_Supplies_5",
+        "top_n": 5,
+        "attributes": [
+          "price",
+          "quality",
+          "comfort"
+        ],
+        "standard": [
+          {
+            "sentence": "It is a great product for my dog!",
+            "review_id": 19881,
+            "score": 52.4,
+            "is_fake": true
+          },
+          {
+            "sentence": "My dogs get these for their treats and they are a good size.My dog loves this treat.I bought this for a friend who has a small dog and",
+            "review_id": 21075,
+            "score": 49.8,
+            "is_fake": true
+          },
+          {
+            "sentence": "We use it on our dogs and they love it.My dog loves this treat.I bought this for a friend who has a small dog and she had a very sensitive",
+            "review_id": 21382,
+            "score": 50.2,
+            "is_fake": true
+          },
+          {
+            "sentence": "My dogs love them.My dog loves these.",
+            "review_id": 22884,
+            "score": 51.9,
+            "is_fake": true
+          },
+          {
+            "sentence": "My dogs love it!My dog loves this food.",
+            "review_id": 23659,
+            "score": 16.7,
+            "is_fake": true
+          }
+        ],
+        "credibility_aware": [
+          {
+            "sentence": "Dog loves it.",
+            "review_id": 19512,
+            "score": 66.0,
+            "is_fake": false
+          },
+          {
+            "sentence": "I, more than my dog, love this.",
+            "review_id": 19580,
+            "score": 67.4,
+            "is_fake": false
+          },
+          {
+            "sentence": "Smells good for a dog food and my dogs love it!",
+            "review_id": 19584,
+            "score": 67.8,
+            "is_fake": false
+          },
+          {
+            "sentence": "my dog loves it ...",
+            "review_id": 19598,
+            "score": 70.5,
+            "is_fake": false
+          },
+          {
+            "sentence": "My dogs love them.My dog loves these.",
+            "review_id": 22884,
+            "score": 51.9,
+            "is_fake": true
+          }
+        ],
+        "oracle": [
+          {
+            "sentence": "Smells good for a dog food and my dogs love it!",
+            "review_id": 19584,
+            "score": 67.8,
+            "is_fake": false
+          },
+          {
+            "sentence": "This is a great product and a must have for every dog.",
+            "review_id": 19696,
+            "score": 52.0,
+            "is_fake": false
+          },
+          {
+            "sentence": "Great dog food.",
+            "review_id": 20311,
+            "score": 50.0,
+            "is_fake": false
+          },
+          {
+            "sentence": "It's a great toy, the dogs love it.",
+            "review_id": 20614,
+            "score": 49.4,
+            "is_fake": false
+          },
+          {
+            "sentence": "Our dog loves this dog food.",
+            "review_id": 21494,
+            "score": 50.3,
+            "is_fake": false
+          }
+        ]
+      },
+      {
+        "category": "Sports_and_Outdoors_5",
+        "top_n": 5,
+        "attributes": [
+          "comfort",
+          "quality",
+          "price"
+        ],
+        "standard": [
+          {
+            "sentence": "Great Product!Very good quality.",
+            "review_id": 4202,
+            "score": 59.6,
+            "is_fake": true
+          },
+          {
+            "sentence": "Great Product!Very good quality.",
+            "review_id": 4358,
+            "score": 57.0,
+            "is_fake": true
+          },
+          {
+            "sentence": "Great item, I use it daily.Great Product!Very good quality.Nice bag.",
+            "review_id": 5315,
+            "score": 52.4,
+            "is_fake": true
+          },
+          {
+            "sentence": "The quality is good but it's not a perfect fit.Great product.",
+            "review_id": 5907,
+            "score": 55.3,
+            "is_fake": true
+          },
+          {
+            "sentence": "Great product for a good price.",
+            "review_id": 7693,
+            "score": 52.2,
+            "is_fake": true
+          }
+        ],
+        "credibility_aware": [
+          {
+            "sentence": "Great Product!Very good quality.",
+            "review_id": 4202,
+            "score": 59.6,
+            "is_fake": true
+          },
+          {
+            "sentence": "Great Product!Very good quality.",
+            "review_id": 4358,
+            "score": 57.0,
+            "is_fake": true
+          },
+          {
+            "sentence": "This is a great!",
+            "review_id": 7574,
+            "score": 75.9,
+            "is_fake": false
+          },
+          {
+            "sentence": "Great product, great price.",
+            "review_id": 7643,
+            "score": 72.3,
+            "is_fake": true
+          },
+          {
+            "sentence": "It's a great little product, and she can't wait to use it.",
+            "review_id": 7809,
+            "score": 81.0,
+            "is_fake": true
+          }
+        ],
+        "oracle": [
+          {
+            "sentence": "Perfect fit, great price.",
+            "review_id": 5216,
+            "score": 50.2,
+            "is_fake": false
+          },
+          {
+            "sentence": "love the pants;;;;;great fit ,and great look,great price.",
+            "review_id": 5534,
+            "score": 49.6,
+            "is_fake": false
+          },
+          {
+            "sentence": "Great product and a great price.",
+            "review_id": 5593,
+            "score": 50.2,
+            "is_fake": false
+          },
+          {
+            "sentence": "It is great to find a product that works this well.",
+            "review_id": 6147,
+            "score": 58.6,
+            "is_fake": false
+          },
+          {
+            "sentence": "Seemed like it could have been a good product.",
+            "review_id": 6718,
+            "score": 59.9,
+            "is_fake": false
+          }
+        ]
+      },
+      {
+        "category": "Tools_and_Home_Improvement_5",
+        "top_n": 5,
+        "attributes": [
+          "price",
+          "quality",
+          "customer_service"
+        ],
+        "standard": [
+          {
+            "sentence": "Great light, great look they are an easy to use light.",
+            "review_id": 16190,
+            "score": 44.3,
+            "is_fake": true
+          },
+          {
+            "sentence": "Love it but have to go back and buy more.works great.Nice little light!",
+            "review_id": 16243,
+            "score": 52.3,
+            "is_fake": true
+          },
+          {
+            "sentence": "This is a great product and an excellent quality product.works great.Nice little light!",
+            "review_id": 16590,
+            "score": 52.0,
+            "is_fake": true
+          },
+          {
+            "sentence": "Light works great!",
+            "review_id": 18231,
+            "score": 66.1,
+            "is_fake": false
+          },
+          {
+            "sentence": "Get some more.Great Product!Very good quality.Nice little light.",
+            "review_id": 18552,
+            "score": 57.8,
+            "is_fake": true
+          }
+        ],
+        "credibility_aware": [
+          {
+            "sentence": "Good price and works great.",
+            "review_id": 15829,
+            "score": 64.5,
+            "is_fake": false
+          },
+          {
+            "sentence": "Light works great!",
+            "review_id": 18231,
+            "score": 66.1,
+            "is_fake": false
+          },
+          {
+            "sentence": "Get some more.Great Product!Very good quality.Nice little light.",
+            "review_id": 18552,
+            "score": 57.8,
+            "is_fake": true
+          },
+          {
+            "sentence": "This could have been great.",
+            "review_id": 19026,
+            "score": 78.2,
+            "is_fake": false
+          },
+          {
+            "sentence": "The light is quite bright and works well to light up a small area.",
+            "review_id": 19404,
+            "score": 89.1,
+            "is_fake": false
+          }
+        ],
+        "oracle": [
+          {
+            "sentence": "Good price and works great.",
+            "review_id": 15829,
+            "score": 64.5,
+            "is_fake": false
+          },
+          {
+            "sentence": "Easy to use and works great.",
+            "review_id": 16692,
+            "score": 49.7,
+            "is_fake": false
+          },
+          {
+            "sentence": "Great light!",
+            "review_id": 17125,
+            "score": 57.9,
+            "is_fake": false
+          },
+          {
+            "sentence": "this was a great product at a really good price.",
+            "review_id": 17338,
+            "score": 50.1,
+            "is_fake": false
+          },
+          {
+            "sentence": "Light works great!",
+            "review_id": 18231,
+            "score": 66.1,
+            "is_fake": false
+          }
+        ]
+      },
+      {
+        "category": "Toys_and_Games_5",
+        "top_n": 5,
+        "attributes": [
+          "quality",
+          "price",
+          "durability"
+        ],
+        "standard": [
+          {
+            "sentence": "My son loves this!Great",
+            "review_id": 32832,
+            "score": 52.6,
+            "is_fake": true
+          },
+          {
+            "sentence": "My son loves this!Great",
+            "review_id": 32905,
+            "score": 53.7,
+            "is_fake": true
+          },
+          {
+            "sentence": "My son loves this!Great",
+            "review_id": 33678,
+            "score": 52.1,
+            "is_fake": true
+          },
+          {
+            "sentence": "Love it.Great quality and fun for kids.My son loves this!Great product.",
+            "review_id": 35278,
+            "score": 53.3,
+            "is_fake": true
+          },
+          {
+            "sentence": "While its great that this is an easy to use and fun toy, my son loves to play with it.",
+            "review_id": 36240,
+            "score": 23.3,
+            "is_fake": true
+          }
+        ],
+        "credibility_aware": [
+          {
+            "sentence": "She loves it!",
+            "review_id": 35496,
+            "score": 73.4,
+            "is_fake": true
+          },
+          {
+            "sentence": "This is a great toy and I highly recommend it.I bought this as a gift for my daughter for Christmas and she loves it!",
+            "review_id": 36176,
+            "score": 69.6,
+            "is_fake": true
+          },
+          {
+            "sentence": "She loves to play with all the pieces of it.",
+            "review_id": 36268,
+            "score": 76.4,
+            "is_fake": false
+          },
+          {
+            "sentence": "My 3 year old son loves it.",
+            "review_id": 36329,
+            "score": 74.5,
+            "is_fake": true
+          },
+          {
+            "sentence": "I bought this for my 5 year old, and he LOVES it.",
+            "review_id": 36410,
+            "score": 74.2,
+            "is_fake": false
+          }
+        ],
+        "oracle": [
+          {
+            "sentence": "This is a great game for my 7 year old.",
+            "review_id": 34098,
+            "score": 57.8,
+            "is_fake": false
+          },
+          {
+            "sentence": "My 9 year old son LOVES this set.",
+            "review_id": 34653,
+            "score": 59.3,
+            "is_fake": false
+          },
+          {
+            "sentence": "My 2 year old daughter loves this as much as my 6 year old son.",
+            "review_id": 35108,
+            "score": 63.7,
+            "is_fake": false
+          },
+          {
+            "sentence": "My five year old can play it and loves it.",
+            "review_id": 35469,
+            "score": 51.1,
+            "is_fake": false
+          },
+          {
+            "sentence": "My 4-year-old daughter loves to play with these.",
+            "review_id": 36072,
+            "score": 65.1,
+            "is_fake": false
+          }
+        ]
+      }
+    ]
+  }
+}

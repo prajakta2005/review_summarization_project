@@ -10,3 +10,4 @@ scipy
 shap
 lime
 matplotlib
+rouge-score

@@ -31,6 +31,7 @@ selected_product = st.selectbox("Select product", product_ids)
 summary = credibility_aware_summary(explained, product_id=selected_product)
 st.subheader("Overall Summary")
 st.write(summary["overall_summary"])
+st.page_link("pages/06_Summarization.py", label="Compare with a standard (non-credibility) summary →")
 st.subheader("High-Credibility Consensus")
 st.write(summary["high_credibility_consensus"])
 if summary["low_credibility_flags"]:
