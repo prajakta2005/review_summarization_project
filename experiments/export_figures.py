@@ -23,7 +23,7 @@ def main():
     for name, (caption, fig) in figs.items():
         fig.update_layout(template="plotly_white", width=1100, height=max(fig.layout.height or 500, 450))
         path = os.path.join(FIGURES_DIR, f"{name}.png")
-        fig.write_image(path, scale=2)
+        fig.write_image(path, width=fig.layout.width, height=fig.layout.height, scale=2)
         print(f"wrote {path}  ({caption})")
     print(f"{len(figs)} figures in {FIGURES_DIR}/")
 
