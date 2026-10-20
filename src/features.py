@@ -111,6 +111,13 @@ FEATURE_COLUMNS = [
     "repetition_ratio", "specificity", "rating_consistency"
 ]
 
+# Kinds of signal, used by the ablation study to remove whole groups at once.
+FEATURE_GROUPS = {
+    "style": ["exclaim_density", "repetition_ratio"],
+    "content": ["length", "specificity"],
+    "sentiment": ["sentiment", "rating_consistency"],
+}
+
 
 if __name__ == "__main__":
     from preprocessing import load_reviews, preprocess

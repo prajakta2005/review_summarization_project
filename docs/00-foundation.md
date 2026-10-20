@@ -41,7 +41,7 @@ exactly as it does today, just spread across pages.
 | File | Change |
 |---|---|
 | `app.py` | Becomes **Home**: page config, title, data-source picker (sample / full Kaggle / upload + max-rows slider), runs `get_pipeline()`, shows the 4 overview metrics and 2 overview charts that are there today. Everything else moves to `pages/10_Review_Explorer.py`. |
-| `src/credibility_model.py` | `train_model()` uses `splits.train_test_indices()` instead of its own `train_test_split(test_size=0.25)`. Already done in the working tree: `os.makedirs` before `joblib.dump`. |
+| `src/credibility_model.py` | `train_model()` uses `splits.train_test_indices()` instead of its own `train_test_split(test_size=0.25)`. (`os.makedirs` before `joblib.dump` landed in commit 37d5a6f.) |
 | `src/evaluation.py` | `evaluate_model()` uses the same `train_test_indices()`, so it evaluates on exactly the rows `train_model()` held out |
 | `.gitignore` | Change `models/*.joblib` to keep ignoring binaries and add `models/bert/`, `results/predictions/*.joblib`, `.streamlit/secrets.toml` |
 | `README.md` | "Run it" section: mention the pages, `pytest`, and point to `docs/README.md` |

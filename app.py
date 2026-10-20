@@ -89,6 +89,9 @@ with c2:
     fig2 = px.bar(importance, x="importance", y="feature", orientation="h",
                   title="Which signals matter most (global feature importance)")
     st.plotly_chart(fig2, use_container_width=True)
+    st.caption("This is Random Forest impurity importance, which can be biased toward features with many "
+               "distinct values (like length).")
+    st.page_link("pages/07_Ablation_Study.py", label="See what each feature really contributes (ablation) →")
 
 st.info("Use the pages in the sidebar to explore each module. "
         "**Review Explorer** has product summaries and per-review explanations.")
