@@ -11,6 +11,7 @@ the full 40,412-review dataset). If you re-run `python experiments/run_all.py`, 
 
 | File | Use it for |
 |---|---|
+| [speaker-notes.md](speaker-notes.md) | Slide-by-slide script: who presents, opening line, points, hand-offs, timing |
 | [demo-runbook.md](demo-runbook.md) | Setup, pre-demo checklist, the 6-minute live demo script, what to do if something breaks |
 | [01-dataset.md](01-dataset.md) | Full dataset (40k reviews) |
 | [02-model-comparison.md](02-model-comparison.md) | RF vs LR vs SVM vs BERT |
